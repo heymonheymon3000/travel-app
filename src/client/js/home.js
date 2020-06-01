@@ -40,18 +40,6 @@ const handleHomeClickEvent = (event) => {
     });
 }
 
-const closeAlertHandler = (event) => {
-    event.preventDefault();
-
-    const alert = document.getElementById('close-alert');
-    alert.addEventListener('click', (event) => {
-        const alert = document.getElementById('form-alert');
-        alert.classList.remove('show');
-        alert.classList.add('fade');
-        alert.classList.add('collaspe');
-    });
-}
-
 const formValidation = () => {
     let inputs = document.getElementsByClassName("vcheck");
     Array.prototype.slice.call(inputs).map((input) => {
@@ -172,24 +160,13 @@ const handleSubmitEvent = (event) => {
     const inputReturnDate = Date.parse(document.getElementById('inputReturnDate').value);
 
     if(inputDepartureDate > inputReturnDate) {
-        const alert = document.getElementById('form-alert');
-        alert.classList.remove('collaspe');
-        alert.classList.add('show');
-        alert.classList.add('fade');
-
+        alert("Please enter in a Return Date that is later than the Departure Date.");
         document.getElementById('submit').setAttribute('disabled', 'disabled');
         document.getElementById('inputReturnDate').value = '';
-
-        setTimeout(() => {
-            const alert = document.getElementById('form-alert');
-            alert.classList.remove('show');
-            alert.classList.add('fade');
-            alert.classList.add('collaspe');
-        }, 5000);
     } else {
         // TODO:
         // go ahead and make the rest call and clear values....
     }
 }
 
-export { handleHomeClickEvent, formValidation, closeAlertHandler }
+export { handleHomeClickEvent, formValidation }
