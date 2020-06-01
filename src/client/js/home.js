@@ -164,6 +164,13 @@ const handleSubmitEvent = (event) => {
     } else {
         // TODO:
         // go ahead and make the rest call and clear values....
+
+        // clear values
+        // document.getElementById('inputFrom').value = '';
+        // document.getElementById('inputTo').value = '';
+        // document.getElementById('inputDepartureDate').value = '';
+        // document.getElementById('inputReturnDate').value = '';
+
     }
 }
 
