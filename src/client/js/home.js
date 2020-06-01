@@ -1,5 +1,8 @@
 import places from 'places.js'
 
+const APP_ID = 'plSJEHE4H2BS';
+const API_KEY = '52e9906ede72cff32993b1887418d161';
+
 const handleHomeClickEvent = (event) => {
     event.preventDefault()
 
@@ -9,8 +12,8 @@ const handleHomeClickEvent = (event) => {
     section.replaceWith(buildLayout());
 
     places({
-        appId: 'plSJEHE4H2BS',
-        apiKey: '52e9906ede72cff32993b1887418d161',
+        appId: APP_ID,
+        apiKey: API_KEY,
         container: document.getElementById('inputFrom'),
         templates: {
             value: function(suggestion) {
@@ -22,8 +25,8 @@ const handleHomeClickEvent = (event) => {
     });
 
     places({
-        appId: 'plSJEHE4H2BS',
-        apiKey: '52e9906ede72cff32993b1887418d161',
+        appId: APP_ID,
+        apiKey: API_KEY,
         container: document.getElementById('inputTo'),
         templates: {
             value: function(suggestion) {
@@ -33,10 +36,6 @@ const handleHomeClickEvent = (event) => {
             type: 'city',
             aroundLatLngViaIP: false,
     });
-
-
-
-    
 }
 
 const toggleActiveItem = () => { 
@@ -45,105 +44,88 @@ const toggleActiveItem = () => {
 }
 
 const buildLayout = () => {
-    const homeContentDiv = document.createElement('div');
-    homeContentDiv.setAttribute('id', 'home-content');
+    const fromDiv = createFormElementDiv();
+    fromDiv.appendChild(createFormLabel('inputFrom', 'From Destination'));
+    fromDiv.appendChild(createInput('inputFrom', 'text', 'From'));
 
-    const form = document.createElement('form-row');
+    const toDiv = createFormElementDiv(); 
+    toDiv.appendChild(createFormLabel('inputTo', 'To Destination'));
+    toDiv.appendChild(createInput('inputTo', 'text', 'To'));
+    
+    const departureDateDiv = createFormElementDiv(); 
+    departureDateDiv.appendChild(createFormLabel('inputDepartureDate', 'Departure Date'));
+    departureDateDiv.appendChild(createInput('inputDepartureDate', 'date', 'Departure date'));
+
+    const returnDateDiv = createFormElementDiv(); 
+    returnDateDiv.appendChild(createFormLabel('inputReturnDate', 'Return Date'));
+    returnDateDiv.appendChild(createInput('inputReturnDate', 'date', 'Return date'));
+
+    const submitButtonDiv = createFormElementDiv(); 
+    submitButtonDiv.appendChild(createFormLabel('submitButton', 'Add Trip'));
+    submitButtonDiv.appendChild(createSubmitButton());
+
     const rowDiv = document.createElement('div');
     rowDiv.classList.add('row');
-
-    const fromDiv = document.createElement('div');
-    fromDiv.classList.add('col-auto');
-    fromDiv.classList.add('form-group');
-    const fromLabel = document.createElement('label');
-    fromLabel.setAttribute('for', 'inputFrom');
-    fromLabel.innerHTML = 'From Destination';
-    const fromInput = document.createElement('input');
-    fromInput.setAttribute('id', 'inputFrom');
-    fromInput.classList.add('form-control');
-    fromInput.setAttribute('type', 'text');
-    fromInput.setAttribute('placeholder', 'From');
-
-    const toDiv = document.createElement('div');
-    toDiv.classList.add('col-auto');
-    fromDiv.classList.add('form-group');
-    const toLabel = document.createElement('label');
-    toLabel.setAttribute('for', 'inputTo');
-    toLabel.innerHTML = 'To Destination';
-    const toInput = document.createElement('input');
-    toInput.setAttribute('id', 'inputTo');
-    toInput.classList.add('form-control');
-    toInput.setAttribute('type', 'text');
-    toInput.setAttribute('placeholder', 'To');
-
-    const departureDateDiv = document.createElement('div');
-    departureDateDiv.classList.add('col-auto');
-    departureDateDiv.classList.add('form-group');
-    const departureDateLabel = document.createElement('label');
-    departureDateLabel.setAttribute('for', 'inputDepartureDate');
-    departureDateLabel.innerHTML = 'Departure Date';
-    const departureDateInput = document.createElement('input');
-    departureDateInput.setAttribute('id', 'inputDepartureDate');
-    departureDateInput.classList.add('form-control');
-    departureDateInput.setAttribute('type', 'date');
-    departureDateInput.setAttribute('placeholder', 'Departure date');
-
-    const returnDateDiv = document.createElement('div');
-    returnDateDiv.classList.add('col-auto');
-    returnDateDiv.classList.add('form-group');
-    const returnDateLabel = document.createElement('label');
-    returnDateLabel.setAttribute('for', 'inputReturnDate');
-    returnDateLabel.innerHTML = 'Departure Date';
-    const returnDateInput = document.createElement('input');
-    returnDateInput.setAttribute('id', 'inputReturnDate');
-    returnDateInput.classList.add('form-control');
-    returnDateInput.setAttribute('type', 'date');
-    returnDateInput.setAttribute('placeholder', 'Return date');
-
-    const submitButtonDiv = document.createElement('div');
-    submitButtonDiv.classList.add('col-auto');
-    submitButtonDiv.classList.add('form-group');
-    const submitButtonLabel = document.createElement('label');
-    submitButtonLabel.setAttribute('for', 'submitButton');
-    submitButtonLabel.innerHTML = 'Add Trip';
-    const submitButton = document.createElement('button');
-    submitButton.setAttribute('type', 'submit');
-    submitButton.setAttribute('id', 'submitButton');
-    submitButton.classList.add('form-control');
-    submitButton.innerHTML = 'Submit'
-    submitButton.classList.add("btn");
-    submitButton.classList.add("mb-2");
-
-    const section = document.createElement('section');
-    section.setAttribute('id', 'bg-image');
-
-    fromDiv.appendChild(fromLabel);
-    fromDiv.appendChild(fromInput);
-
-    toDiv.appendChild(toLabel);
-    toDiv.appendChild(toInput);
-    
-    departureDateDiv.appendChild(departureDateLabel);
-    departureDateDiv.appendChild(departureDateInput);
-
-    returnDateDiv.appendChild(returnDateLabel);
-    returnDateDiv.appendChild(returnDateInput);
-
-    submitButtonDiv.appendChild(submitButtonLabel);
-    submitButtonDiv.appendChild(submitButton);
-
     rowDiv.appendChild(fromDiv);
     rowDiv.appendChild(toDiv);
     rowDiv.appendChild(departureDateDiv);
     rowDiv.appendChild(returnDateDiv);
     rowDiv.appendChild(submitButtonDiv);
 
+    const form = document.createElement('form-row');
     form.appendChild(rowDiv);
 
+    const homeContentDiv = document.createElement('div');
+    homeContentDiv.setAttribute('id', 'home-content');
     homeContentDiv.appendChild(form);
-    homeContentDiv.appendChild(section);
+    homeContentDiv.appendChild(createSectionElement());
 
     return homeContentDiv;
+}
+
+const createFormLabel = (forAttribute, labelText) => {
+    const label = document.createElement('label');
+    label.setAttribute('for', forAttribute);
+    label.innerHTML = labelText;
+
+    return label;
+}
+
+const createInput = (id, type, placeholder) => {
+    const input = document.createElement('input');
+    input.setAttribute('id', id);
+    input.classList.add('form-control');
+    input.setAttribute('type', type);
+    input.setAttribute('placeholder', placeholder);
+
+    return input;
+}
+
+const createFormElementDiv = () => {
+    const div = document.createElement('div');
+    div.classList.add('col-auto');
+    div.classList.add('form-group');
+
+    return div;
+}
+
+const createSectionElement = () => {
+    const section = document.createElement('section');
+    section.setAttribute('id', 'bg-image');
+
+    return section;
+}
+
+const createSubmitButton = () => {
+    const button = document.createElement('button');
+    button.setAttribute('type', 'submit');
+    button.setAttribute('id', 'submitButton');
+    button.classList.add('form-control');
+    button.innerHTML = 'Submit'
+    button.classList.add("btn");
+    button.classList.add("mb-2");
+
+    return button;
 }
 
 export { handleHomeClickEvent }
