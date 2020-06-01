@@ -1,0 +1,82 @@
+/* Anything smaller than first breakpoint 600px */
+@media(max-width:599px) {
+}
+
+/* Medium Screens */
+@media (min-width: 600px) and (max-width:900px) {
+}
+
+/* Large Screens */
+@media (min-width:901px) {
+}
+
+#app {
+    display: grid;
+    grid-template-columns: 100vw;
+    grid-template-rows: 8% auto;
+    grid-template-areas: "hd"
+                         "mc"; 
+    height: 100vh;
+    justify-content: center;
+
+    header {
+        grid-area: hd;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .bg-custom {
+        @include linearGradient($darkBlue,$midBlue);
+    }
+    
+    nav {
+        height: 100%;
+    }
+    
+    #main-content {
+        grid-area: mc;
+    }
+    
+    #home-content {
+        display: grid;
+        grid-template-columns: 100vw;
+        grid-template-rows: 100px auto;
+        grid-template-areas: "f"
+                             "bi";
+    }
+    
+    .fa-arrows-alt-h {
+        color: red !important;
+        display: grid;
+        place-content: center;
+    }
+
+    // #my-trips-content {
+    
+    // }
+    
+    form {
+        color: #fffff8;
+        grid-area: f;
+        @include linearGradient($darkBlue,$midBlue);
+        display: grid;
+        justify-content: center;
+        align-content: center;
+        padding-top: 1em;
+    }
+
+    .ap-suggestion {
+        color: #000000 !important;
+    }
+    
+    #bg-image {
+        grid-area: bi;
+        background-image: url('../img/Travel-the-World.jpg');
+        background-size: cover;
+    }
+    
+    #submit {
+        background-color: #FBC02D !important;
+    }
+}
+

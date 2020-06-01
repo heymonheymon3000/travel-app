@@ -1,16 +1,7 @@
-$midBlue: rgb(34, 115, 182);
-$darkBlue: rgb(0, 63, 115);
-
-@mixin linearGradient($top, $bottom){
-    background: $top; /* Old browsers */
-    background: -moz-linear-gradient(top,  $top 0%, $bottom 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$top), color-stop(100%,$bottom)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top,  $top 0%,$bottom 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top,  $top 0%,$bottom 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top,  $top 0%,$bottom 100%); /* IE10+ */
-    background: linear-gradient(to bottom,  $top 0%,$bottom 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
- }
+@import './variables';
+@import './mixins';
+@import './home';
+@import './myTrips';
 
 * {
     box-sizing: border-box;
@@ -20,73 +11,3 @@ body {
     background: #fffff8;
     font-family: "Noto Sans", sans-serif;
 }
-
-#app {
-    display: grid;
-    grid-template-columns: 100vw;
-    grid-template-rows: 8% auto;
-    grid-template-areas: "hd"
-                         "mc"; 
-    height: 100vh;
-    justify-content: center;
-
-    header {
-        grid-area: hd;
-        display: flex;
-        flex-direction: column;
-    }
-    
-    .bg-custom {
-        @include linearGradient($darkBlue,$midBlue);
-    }
-    
-    nav {
-        height: 100%;
-    }
-    
-    #main-content {
-        grid-area: mc;
-    }
-    
-    #home-content {
-        display: grid;
-        grid-template-columns: 100vw;
-        grid-template-rows: 100px auto;
-        grid-template-areas: "f"
-                             "bi";
-    }
-    
-    .fa-arrows-alt-h {
-        color: red !important;
-        display: grid;
-        place-content: center;
-    }
-    
-    // #my-trips-content {
-    
-    // }
-    form {
-        color: #fffff8;
-        grid-area: f;
-        @include linearGradient($darkBlue,$midBlue);
-        display: grid;
-        justify-content: center;
-        align-content: center;
-        padding-top: 1em;
-    }
-    
-    .ap-suggestion {
-        color: #000000 !important;
-    }
-    
-    #bg-image {
-        grid-area: bi;
-        background-image: url('../img/Travel-the-World.jpg');
-        background-size: cover;
-    }
-    
-    #submit {
-        background-color: #FBC02D !important;
-    }
-}
-

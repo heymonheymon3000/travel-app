@@ -11,7 +11,6 @@ const handleHomeClickEvent = (event) => {
     let section = document.getElementById('main-content')
     section.replaceWith(buildLayout());
 
-    // configure type ahead for from destination
     places({
         appId: APP_ID,
         apiKey: API_KEY,
@@ -25,7 +24,6 @@ const handleHomeClickEvent = (event) => {
             aroundLatLngViaIP: false,
     });
 
-    // configure type ahead for to destination
     places({
         appId: APP_ID,
         apiKey: API_KEY,
