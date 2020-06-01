@@ -185,7 +185,7 @@ const handleSubmitEvent = (event) => {
             alert.classList.remove('show');
             alert.classList.add('fade');
             alert.classList.add('collaspe');
-        }, 2000);
+        }, 5000);
     } else {
         // TODO:
         // go ahead and make the rest call and clear values....

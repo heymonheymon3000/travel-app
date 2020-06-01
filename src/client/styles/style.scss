@@ -1,7 +1,6 @@
 $midBlue: rgb(34, 115, 182);
 $darkBlue: rgb(0, 63, 115);
 
-/// Mixin printing a linear-gradient
 @mixin linearGradient($top, $bottom){
     background: $top; /* Old browsers */
     background: -moz-linear-gradient(top,  $top 0%, $bottom 100%); /* FF3.6+ */
@@ -20,7 +19,6 @@ $darkBlue: rgb(0, 63, 115);
 body {
     background: #fffff8;
     font-family: "Noto Sans", sans-serif;
-    
 }
 
 #app {
@@ -36,7 +34,6 @@ body {
         grid-area: hd;
         display: flex;
         flex-direction: column;
-    
     }
     
     .bg-custom {
@@ -65,12 +62,16 @@ body {
         place-content: center;
     }
     
-    
-    
     // #my-trips-content {
     
     // }
     
+    .alert-danger {
+        background-color: transparent !important;
+        border: transparent !important;
+        color: red;
+    }
+
     form {
         color: #fffff8;
         grid-area: f;
@@ -92,7 +93,7 @@ body {
     }
     
     #submit {
-        background-color: rgb(192,135,49) !important;
+        background-color: #FBC02D !important;
     }
 }
 
