@@ -1,19 +1,7 @@
-/* Anything smaller than first breakpoint 600px */
-@media(max-width:599px) {
-}
-
-/* Medium Screens */
-@media (min-width: 600px) and (max-width:900px) {
-}
-
-/* Large Screens */
-@media (min-width:901px) {
-}
-
 #app {
     display: grid;
     grid-template-columns: 100vw;
-    grid-template-rows: 8% auto;
+    grid-template-rows: 8vh auto;
     grid-template-areas: "hd"
                          "mc"; 
     height: 100vh;
@@ -27,10 +15,6 @@
     
     .bg-custom {
         @include linearGradient($darkBlue,$midBlue);
-    }
-    
-    nav {
-        height: 100%;
     }
     
     #main-content {
@@ -48,9 +32,9 @@
     // }
     
     form {
-        color: #fffff8;
         grid-area: f;
         @include linearGradient($darkBlue,$midBlue);
+        color: #fffff8;
         display: grid;
         justify-content: center;
         align-content: center;
