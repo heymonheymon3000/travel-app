@@ -37,6 +37,8 @@ const handleHomeClickEvent = (event) => {
             type: 'city',
             aroundLatLngViaIP: false,
     });
+
+    formValidation();
 }
 
 const formValidation = () => {
@@ -181,4 +183,4 @@ const handleSubmitEvent = (event) => {
     }
 }
 
-export { handleHomeClickEvent, formValidation }
+export { handleHomeClickEvent }
