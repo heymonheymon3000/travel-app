@@ -165,7 +165,7 @@ const handleSubmitEvent = (event) => {
         // TODO: replace this with a error dialog
         alert("Please enter in a Return Date that is later than the Departure Date.");
     } else {
-        addTrip('/addTrip',{ depCity, arrCity, depDateTimestamp, arrDateTimestamp })
+        addTrip('/api/addTrip',{ depCity, arrCity, depDateTimestamp, arrDateTimestamp })
         .then((trips) => {
             alert(JSON.stringify(trips, null, 2));
 

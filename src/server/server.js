@@ -22,7 +22,7 @@ app.get('/', function (req, res) {
     res.sendFile(path.resolve('dist', 'index.html'))
 })
 
-app.post('/addTrip', function (req, res) {
+app.post('/api/addTrip', function (req, res) {
     projectData['depCity'] = req.body.depCity;
     projectData['arrCity'] = req.body.arrCity;
     projectData['depDateTimestamp'] = req.body.depDateTimestamp;
@@ -30,6 +30,6 @@ app.post('/addTrip', function (req, res) {
     res.send(projectData);
 })
 
-app.listen(8080, function () {
-    console.log('Listening on port 8080!')
+app.listen(3000, function () {
+    console.log('Listening on port 3000!')
 })
