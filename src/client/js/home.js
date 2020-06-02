@@ -1,4 +1,5 @@
 import places from 'places.js'
+import addTrip  from '../js/api'
 
 const APP_ID = 'plSJEHE4H2BS';
 const API_KEY = '52e9906ede72cff32993b1887418d161';
@@ -152,25 +153,31 @@ const createSubmitButton = () => {
 const handleSubmitEvent = (event) => {
     event.preventDefault();
 
-    const inputFrom = document.getElementById('inputFrom').value;
-    const inputTo = document.getElementById('inputTo').value;
-    const inputDepartureDate = Date.parse(document.getElementById('inputDepartureDate').value);
-    const inputReturnDate = Date.parse(document.getElementById('inputReturnDate').value);
+    const depCity = document.getElementById('inputFrom').value;
+    const arrCity = document.getElementById('inputTo').value;
+    const depDateTimestamp = Date.parse(document.getElementById('inputDepartureDate').value);
+    const arrDateTimestamp = Date.parse(document.getElementById('inputReturnDate').value);
 
     if(inputDepartureDate > inputReturnDate) {
-        alert("Please enter in a Return Date that is later than the Departure Date.");
         document.getElementById('submit').setAttribute('disabled', 'disabled');
         document.getElementById('inputReturnDate').value = '';
+
+        // TODO: replace this with a error dialog
+        alert("Please enter in a Return Date that is later than the Departure Date.");
     } else {
-        // TODO:
-        // go ahead and make the rest call and clear values....
+        addTrip('/addTrip',{ depCity, arrCity, depDateTimestamp, arrDateTimestamp })
+        .then((trips) => {
+            alert(JSON.stringify(trips, null, 2));
 
-        // clear values
-        // document.getElementById('inputFrom').value = '';
-        // document.getElementById('inputTo').value = '';
-        // document.getElementById('inputDepartureDate').value = '';
-        // document.getElementById('inputReturnDate').value = '';
+            // clear values
+            document.getElementById('inputFrom').value = '';
+            document.getElementById('inputTo').value = '';
+            document.getElementById('inputDepartureDate').value = '';
+            document.getElementById('inputReturnDate').value = '';
 
+            // direct user to my trips
+            document.getElementById("my-trips-ref").click();
+        });
     }
 }
 

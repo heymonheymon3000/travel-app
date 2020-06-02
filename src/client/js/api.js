@@ -8,8 +8,8 @@ export default async function addTrip(url = '', data = {}) {
         body: JSON.stringify({
             depCity: data.depCity,
             arrCity: data.arrCity,
-            depDate: data.depDateTimestamp,
-            arrDate: data.arrDateTimestamp,
+            depDateTimestamp: data.depDateTimestamp,
+            arrDateTimestamp: data.arrDateTimestamp,
         })
     })
 

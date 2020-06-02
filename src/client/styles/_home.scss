@@ -92,17 +92,17 @@
     }
 }
 
-@media (min-width: 660px) and (max-width:1174px) {
+@media (min-width: 660px) and (max-width:1190px) {
     #home-content {
         display: grid;
         grid-template-columns: 100vw;
-        grid-template-rows: 30vh auto;
+        grid-template-rows: 35vh auto;
         grid-template-areas: "f"
                              "bi";
     }
 }
 
-@media (min-width: 1175px) {
+@media (min-width: 1191px) {
     #home-content {
         display: grid;
         grid-template-columns: 100vw;

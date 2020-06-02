@@ -16,14 +16,20 @@ app.use(bodyparser.urlencoded({ extended: false }))
 app.use(bodyparser.json())
 app.use(cors())
 
+let projectData = {};
+
 app.get('/', function (req, res) {
     res.sendFile(path.resolve('dist', 'index.html'))
 })
 
-app.post('/add', function (req, res) {
-    
+app.post('/addTrip', function (req, res) {
+    projectData['depCity'] = req.body.depCity;
+    projectData['arrCity'] = req.body.arrCity;
+    projectData['depDateTimestamp'] = req.body.depDateTimestamp;
+    projectData['arrDateTimestamp'] = req.body.arrDateTimestamp;
+    res.send(projectData);
 })
 
-app.listen(3000, function () {
-    console.log('Listening on port 3000!')
+app.listen(8080, function () {
+    console.log('Listening on port 8080!')
 })
