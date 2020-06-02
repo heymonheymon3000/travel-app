@@ -38,10 +38,10 @@ const handleHomeClickEvent = (event) => {
             aroundLatLngViaIP: false,
     });
 
-    formValidation();
+    addFormValidationListener();
 }
 
-const formValidation = () => {
+const addFormValidationListener = () => {
     let inputs = document.getElementsByClassName("vcheck");
     Array.prototype.slice.call(inputs).map((input) => {
         input.addEventListener('change', (event) => {
