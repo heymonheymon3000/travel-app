@@ -1,10 +1,6 @@
+import _ from 'lodash';
 import places from 'places.js';
-import { addTrip, getLocation }  from '../js/api';
-
-const APP_ID = 'plSJEHE4H2BS';
-const API_KEY = '52e9906ede72cff32993b1887418d161';
-const USERNAME = 'heymonheymon';
-const GEONAMES_URL = 'http://api.geonames.org/searchJSON?q=';
+import { addTrip, getLocation, fetchTripData }  from '../js/api';
 
 const handleHomeClickEvent = (event) => {
     event.preventDefault();
@@ -22,8 +18,8 @@ const handleHomeClickEvent = (event) => {
 
 const configurePlaces = (id) => {
     places({
-        appId: APP_ID,
-        apiKey: API_KEY,
+        appId: 'plSJEHE4H2BS',
+        apiKey: '52e9906ede72cff32993b1887418d161',
         container: document.getElementById(id),
         templates: {
             value: function(suggestion) {
@@ -157,55 +153,46 @@ const handleSubmitEvent = (event) => {
     if(Date.parse(depDate) > Date.parse(arrDate)) {
         document.getElementById('submit').setAttribute('disabled', 'disabled');
         document.getElementById('inputReturnDate').value = '';
-
         alert("Please enter in a Return Date that is later than the Departure Date.");
     } else {
-        let departCityLocation = {};
-        let arriveCityLocation = {};
-
-        getLocation(GEONAMES_URL + depCity + "&username=" + USERNAME + "&maxRows=1")
+        let tripInfo = {};
+        getLocation(depCity)
         .then((location) => {
+            console.log(JSON.stringify(location, null, 2));
+
             if(location.geonames.length === 0) {
                 document.getElementById('inputFrom').value = '';
                 throw new Error("The Destination city " + depCity + " is not a valid city");
             }
-            departCityLocation = { lat: location.geonames[0].lat, lng: location.geonames[0].lng };
-            return getLocation(GEONAMES_URL + arrCity + "&username=" + USERNAME + "&maxRows=1");
+            _.merge(tripInfo, {departure: { city: depCity, date: depDate, 
+                lat: location.geonames[0].lat, lng: location.geonames[0].lng }});
+            return getLocation(arrCity);
         })
         .then((location) => {
+            console.log(JSON.stringify(location, null, 2));
+
+            
             if(location.geonames.length === 0) {
                 document.getElementById('inputTo').value = '';
                 throw new Error("The Arrival city " + arrCity + " is not a valid city");
             }
-            arriveCityLocation = { lat: location.geonames[0].lat, lng: location.geonames[0].lng };
-            return addTrip('/api/addTrip', { 
-                departure: {
-                    date: depDate,
-                    city: depCity,
-                    lat: departCityLocation.lat,
-                    lng: departCityLocation.lng
-                },
-                arrival: {
-                    date: arrDate,
-                    city: arrCity,
-                    lat: arriveCityLocation.lat,
-                    lng: arriveCityLocation.lng
-                }                    
-            });
+            _.merge(tripInfo, {arrival: {city: arrCity, date: arrDate, 
+                lat: location.geonames[0].lat, lng: location.geonames[0].lng }});
+
+            console.log(JSON.stringify(tripInfo, null, 2));
+            return fetchTripData(tripInfo);
         })
         .then((trip) => {
             alert(JSON.stringify(trip, null, 2));
-
             // document.getElementById('inputFrom').value = '';
             // document.getElementById('inputTo').value = '';
             // document.getElementById('inputDepartureDate').value = '';
             // document.getElementById('inputReturnDate').value = '';
-
             // document.getElementById("my-trips-ref").click();
         })
         .catch((err) => {
             alert(err.message);
-        });        
+        });
     }
 }
 
