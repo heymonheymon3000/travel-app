@@ -24,9 +24,7 @@ const addTrip = async (url = '', data = {}) => {
     }
 }
 
-const getLocation = async (city = '') => {
-    console.log(GEONAMES_URL + city + "&username=" + USERNAME + "&maxRows=1")
-    
+const getLocation = async (city = '') => {    
     const res = await fetch(GEONAMES_URL + city + "&username=" + USERNAME + "&maxRows=1")
 
     if (res.ok) {
