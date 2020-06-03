@@ -5,8 +5,8 @@ const PIXABAY_API_URL = "https://pixabay.com/api/?key="+PIXABAY_API_KEY+"&q="
 const GEONAMES_URL = 'http://api.geonames.org/searchJSON?q='
 const USERNAME = 'heymonheymon'
 
-const addTrip = async (url = '', data = {}) => {
-    const res = await fetch(url, {
+const addTrip = async (data = {}) => {
+    const res = await fetch('/api/addTrip', {
         method: "POST",
         credentials: "same-origin",
         headers: {
@@ -14,6 +14,18 @@ const addTrip = async (url = '', data = {}) => {
         },
         body: JSON.stringify(data)
     })
+
+    if (res.ok) {
+        return await res.json()
+    } else {
+        let error = new Error(res.statusText)
+        error.res = res
+        throw error
+    }
+}
+
+const getAllTrips = async () => {    
+    const res = await fetch('/api/allTrips');
 
     if (res.ok) {
         return await res.json()
@@ -71,6 +83,7 @@ const fetchTripData = async (data) => {
     
 export {
     addTrip,
+    getAllTrips,
     getLocation,
     fetchTripData
 } 

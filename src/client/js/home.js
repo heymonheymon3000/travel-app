@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import places from 'places.js'
-import { addTrip, getLocation, fetchTripData }  from '../js/api'
+import { addTrip, getAllTrips, getLocation, fetchTripData }  from '../js/api'
 
 const handleHomeClickEvent = (event) => {
     event.preventDefault()
@@ -190,6 +190,20 @@ const handleSubmitEvent = (event) => {
             // document.getElementById('inputDepartureDate').value = '';
             // document.getElementById('inputReturnDate').value = '';
             // document.getElementById("my-trips-ref").click();
+
+            return addTrip(trip);
+        })
+        .then((trip) => {
+            alert("RETURN FROM SERVER")
+
+            alert(JSON.stringify(trip, null, 2))
+
+            return getAllTrips();
+        })
+        .then((trips) => {
+            alert("ALL TRIPS RETURN FROM SERVER")
+
+            alert(JSON.stringify(trips, null, 2))
         })
         .catch((err) => {
             alert(err.message)

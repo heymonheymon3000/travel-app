@@ -20,6 +20,10 @@ app.post('/api/addTrip', function (req, res) {
     res.status(200).send(req.body);
 })
 
+app.get('/api/allTrips', function (req, res) {
+    res.status(200).send(tripData);
+})
+
 app.listen(3000, function () {
     console.log('Listening on port 3000!')
 })
