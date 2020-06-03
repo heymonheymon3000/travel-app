@@ -1,22 +1,35 @@
-export default async function addTrip(url = '', data = {}) {
-    const req = await fetch(url, {
+const addTrip = async (url = '', data = {}) => {
+    const res = await fetch(url, {
         method: "POST",
         credentials: "same-origin",
         headers: {
             "Content-Type": "application/json;charset=UTF-8"
         },
-        body: JSON.stringify({
-            depCity: data.depCity,
-            arrCity: data.arrCity,
-            depDateTimestamp: data.depDateTimestamp,
-            arrDateTimestamp: data.arrDateTimestamp,
-        })
-    })
+        body: JSON.stringify(data)
+    });
 
-    try {
-        const tripData = await req.json();
-        return tripData;
-      } catch (error) {
-        console.log("error", error);
+    if (res.ok) {
+        return await res.json();
+    } else {
+        let error = new Error(res.statusText);
+        error.res = res;
+        throw error;
     }
 }
+
+const getLocation = async (url = '') => {
+    const res = await fetch(url);
+
+    if (res.ok) {
+        return await res.json();
+    } else {
+        let error = new Error(res.statusText);
+        error.res = res;
+        throw error;
+    }
+}
+    
+export {
+    addTrip,
+    getLocation
+} 

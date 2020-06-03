@@ -1,15 +1,17 @@
-import places from 'places.js'
-import addTrip  from '../js/api'
+import places from 'places.js';
+import { addTrip, getLocation }  from '../js/api';
 
 const APP_ID = 'plSJEHE4H2BS';
 const API_KEY = '52e9906ede72cff32993b1887418d161';
+const USERNAME = 'heymonheymon';
+const GEONAMES_URL = 'http://api.geonames.org/searchJSON?q=';
 
 const handleHomeClickEvent = (event) => {
     event.preventDefault();
 
     toggleActiveItem();
 
-    let section = document.getElementById('main-content')
+    let section = document.getElementById('main-content');
     section.replaceWith(buildLayout());
 
     places({
@@ -157,29 +159,61 @@ const handleSubmitEvent = (event) => {
 
     const depCity = document.getElementById('inputFrom').value;
     const arrCity = document.getElementById('inputTo').value;
-    const depDateTimestamp = Date.parse(document.getElementById('inputDepartureDate').value);
-    const arrDateTimestamp = Date.parse(document.getElementById('inputReturnDate').value);
+    const depDateTimestamp = Date.parse(document.getElementById('inputDepartureDate').value)/1000;
+    const arrDateTimestamp = Date.parse(document.getElementById('inputReturnDate').value)/1000;
 
     if(inputDepartureDate > inputReturnDate) {
         document.getElementById('submit').setAttribute('disabled', 'disabled');
         document.getElementById('inputReturnDate').value = '';
 
-        // TODO: replace this with a error dialog
         alert("Please enter in a Return Date that is later than the Departure Date.");
     } else {
-        addTrip('/api/addTrip',{ depCity, arrCity, depDateTimestamp, arrDateTimestamp })
-        .then((trips) => {
-            alert(JSON.stringify(trips, null, 2));
+        let departCityLocation = {};
+        let arriveCityLocation = {};
 
-            // clear values
-            document.getElementById('inputFrom').value = '';
-            document.getElementById('inputTo').value = '';
-            document.getElementById('inputDepartureDate').value = '';
-            document.getElementById('inputReturnDate').value = '';
+        getLocation(GEONAMES_URL + depCity + "&username=" + USERNAME + "&maxRows=1")
+        .then((location) => {
+            if(location.geonames.length === 0) {
+                document.getElementById('inputFrom').value = '';
+                throw new Error("The Destination city " + depCity + " is not a valid city");
+            }
+            departCityLocation = { lat: location.geonames[0].lat, lng: location.geonames[0].lng };
+            return getLocation(GEONAMES_URL + arrCity + "&username=" + USERNAME + "&maxRows=1");
+        })
+        .then((location) => {
+            if(location.geonames.length === 0) {
+                document.getElementById('inputTo').value = '';
+                throw new Error("The Arrival city " + arrCity + " is not a valid city");
+            }
+            arriveCityLocation = { lat: location.geonames[0].lat, lng: location.geonames[0].lng };
+            return addTrip('/api/addTrip', { 
+                departure: {
+                    timestamp: depDateTimestamp,
+                    city: depCity,
+                    lat: departCityLocation.lat,
+                    lng: departCityLocation.lng
+                },
+                arrival: {
+                    timestamp: arrDateTimestamp,
+                    city: arrCity,
+                    lat: arriveCityLocation.lat,
+                    lng: arriveCityLocation.lng
+                }                    
+            });
+        })
+        .then((trip) => {
+            alert(JSON.stringify(trip, null, 2));
 
-            // direct user to my trips
-            document.getElementById("my-trips-ref").click();
-        });
+            // document.getElementById('inputFrom').value = '';
+            // document.getElementById('inputTo').value = '';
+            // document.getElementById('inputDepartureDate').value = '';
+            // document.getElementById('inputReturnDate').value = '';
+
+            // document.getElementById("my-trips-ref").click();
+        })
+        .catch((err) => {
+            alert(err.message);
+        });        
     }
 }
 
