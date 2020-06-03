@@ -25,12 +25,10 @@ app.get('/', function (req, res) {
 app.post('/api/addTrip', function (req, res) {
     fetchData(req)
     .then((data) => {
-        res.send(data);
+        res.status(200).send(data);
     })
     .catch((err) => {
-        console.log("ERROR");
-        console.log(JSON.stringify(err));
-        res.send(err);
+        res.status(500).send(err);
     })
 })
 
@@ -65,8 +63,6 @@ const fetchData = async (req) => {
         return projectData;
     })
     .catch((err) => {
-        let error = new Error(res.statusText);
-        error.res = res;
-        throw error;
+        throw err;
     })
 }
