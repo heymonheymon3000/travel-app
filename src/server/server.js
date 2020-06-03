@@ -1,10 +1,10 @@
-const fetch = require('node-fetch')
 const dotenv = require('dotenv')
 const path = require('path')
 const express = require('express')
 const bodyparser = require('body-parser')
 const cors = require('cors')
 const app = express()
+const fetch = require('node-fetch');
 
 app.use(express.static(path.resolve('dist')))
 app.use(bodyparser.urlencoded({ extended: false }))
@@ -23,41 +23,14 @@ app.get('/', function (req, res) {
 })
 
 app.post('/api/addTrip', function (req, res) {
-    projectData['depCity-city'] = req.body.departure.city;
-    projectData['depCity-timestamp'] = req.body.departure.timestamp;
-    projectData['depCity-lat'] = req.body.departure.lat;
-    projectData['depCity-lng'] = req.body.departure.lng;
-
-    projectData['arrCity-city'] = req.body.arrival.city;
-    projectData['arrCity-timestamp'] = req.body.arrival.timestamp;
-    projectData['arrCity-lat'] = req.body.arrival.lat;
-    projectData['arrCity-lng'] = req.body.arrival.lng;
-
-    getWeatherData(DARK_SKY_URL + process.env.DARK_SKY_API_KEY + "/" + req.body.departure.lat + "," + req.body.departure.lng + "," + req.body.departure.timestamp + "?exclude=minutely,hourly,daily,flags")
-    .then((departureWeather) => {
-        projectData['depCity-summary'] = departureWeather.currently.summary;
-        projectData['depCity-icon'] = departureWeather.currently.icon;
-        projectData['depCity-temperature'] = departureWeather.currently.temperature;
-        return getWeatherData(DARK_SKY_URL + process.env.DARK_SKY_API_KEY + "/" + req.body.arrival.lat + "," + req.body.arrival.lng + "," + req.body.arrival.timestamp + "?exclude=minutely,hourly,daily,flags");
-    })
-    .then((arrivalWeather) => {
-        projectData['arrCity-summary'] = arrivalWeather.currently.summary;
-        projectData['arrCity-icon'] = arrivalWeather.currently.icon;
-        projectData['arrCity-temperature'] = arrivalWeather.currently.temperature;
-        return getLocationView(PIXABAY_API_URL + req.body.departure.city + "&image_type=photo&per_page=3");
-    })
-    .then((departureView) => {
-        projectData['depCity-webformatURL'] = departureView.hits[0].webformatURL;
-        return getLocationView(PIXABAY_API_URL + req.body.arrival.city + "&image_type=photo&per_page=3");
-    })
-    .then((arrivalView) => {
-        projectData['arrCity-webformatURL'] = arrivalView.hits[0].webformatURL;
-        res.send(projectData);
+    fetchData(req)
+    .then((data) => {
+        res.send(data);
     })
     .catch((err) => {
         console.log("ERROR");
         console.log(JSON.stringify(err));
-
+        res.send(err);
     })
 })
 
@@ -65,26 +38,35 @@ app.listen(3000, function () {
     console.log('Listening on port 3000!')
 })
 
-const getWeatherData = async (url = '') => {
-    const res = await fetch(url);
+const fetchData = async (req) => {
+    const departureWeather = await fetch(DARK_SKY_URL + process.env.DARK_SKY_API_KEY + "/" + req.body.departure.lat + "," + req.body.departure.lng + "," + (Date.parse(req.body.departure.date)/1000) + "?exclude=minutely,hourly,daily,flags");
+    const departureView = await fetch(PIXABAY_API_URL + req.body.departure.city + "&image_type=photo&per_page=3");
+    const arrivalWeather = await fetch(DARK_SKY_URL + process.env.DARK_SKY_API_KEY + "/" + req.body.arrival.lat + "," + req.body.arrival.lng + "," + (Date.parse(req.body.arrival.date)/1000) + "?exclude=minutely,hourly,daily,flags");
+    const arrivalView =  await fetch(PIXABAY_API_URL + req.body.arrival.city + "&image_type=photo&per_page=3");
 
-    if (res.ok) {
-        return await res.json();
-    } else {
+    return Promise.all([departureWeather.json(), departureView.json(), arrivalWeather.json(), arrivalView.json()])
+    .then((results) => {
+        projectData['depCity-city'] = req.body.departure.city;
+        projectData['depCity-date'] = new Date(req.body.departure.date+" ").toDateString();
+        projectData['depCity-lat'] = req.body.departure.lat;
+        projectData['depCity-lng'] = req.body.departure.lng;
+        projectData['depCity-summary'] = results[0].currently.summary;
+        projectData['depCity-icon'] = results[0].currently.icon;
+        projectData['depCity-temperature'] = results[0].currently.temperature;
+        projectData['depCity-webformatURL'] = results[1].hits[0].webformatURL;
+        projectData['arrCity-city'] = req.body.arrival.city;
+        projectData['arrCity-date'] = new Date(req.body.arrival.date+" ").toDateString();
+        projectData['arrCity-lat'] = req.body.arrival.lat;
+        projectData['arrCity-lng'] = req.body.arrival.lng;
+        projectData['arrCity-summary'] = results[2].currently.summary;
+        projectData['arrCity-icon'] = results[2].currently.icon;
+        projectData['arrCity-temperature'] = results[2].currently.temperature;
+        projectData['arrCity-webformatURL'] = results[3].hits[0].webformatURL;
+        return projectData;
+    })
+    .catch((err) => {
         let error = new Error(res.statusText);
         error.res = res;
         throw error;
-    }
-}
-
-const getLocationView = async (url = '') => {
-    const res = await fetch(url);
-
-    if (res.ok) {
-        return await res.json();
-    } else {
-        let error = new Error(res.statusText);
-        error.res = res;
-        throw error;
-    }
+    })
 }

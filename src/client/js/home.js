@@ -14,33 +14,25 @@ const handleHomeClickEvent = (event) => {
     let section = document.getElementById('main-content');
     section.replaceWith(buildLayout());
 
-    places({
-        appId: APP_ID,
-        apiKey: API_KEY,
-        container: document.getElementById('inputFrom'),
-        templates: {
-            value: function(suggestion) {
-                return suggestion.name;
-            }
-        }}).configure({
-            type: 'city',
-            aroundLatLngViaIP: false,
-    });
-
-    places({
-        appId: APP_ID,
-        apiKey: API_KEY,
-        container: document.getElementById('inputTo'),
-        templates: {
-            value: function(suggestion) {
-                return suggestion.name;
-            }
-        }}).configure({
-            type: 'city',
-            aroundLatLngViaIP: false,
-    });
-
+    configurePlaces('inputFrom');
+    configurePlaces('inputTo');
+    
     addFormValidationListener();
+}
+
+const configurePlaces = (id) => {
+    places({
+        appId: APP_ID,
+        apiKey: API_KEY,
+        container: document.getElementById(id),
+        templates: {
+            value: function(suggestion) {
+                return suggestion.name;
+            }
+        }}).configure({
+            type: 'city',
+            aroundLatLngViaIP: false,
+    });
 }
 
 const addFormValidationListener = () => {
@@ -159,10 +151,10 @@ const handleSubmitEvent = (event) => {
 
     const depCity = document.getElementById('inputFrom').value;
     const arrCity = document.getElementById('inputTo').value;
-    const depDateTimestamp = Date.parse(document.getElementById('inputDepartureDate').value)/1000;
-    const arrDateTimestamp = Date.parse(document.getElementById('inputReturnDate').value)/1000;
+    const depDate = document.getElementById('inputDepartureDate').value;
+    const arrDate = document.getElementById('inputReturnDate').value;
 
-    if(inputDepartureDate > inputReturnDate) {
+    if(Date.parse(depDate) > Date.parse(arrDate)) {
         document.getElementById('submit').setAttribute('disabled', 'disabled');
         document.getElementById('inputReturnDate').value = '';
 
@@ -188,13 +180,13 @@ const handleSubmitEvent = (event) => {
             arriveCityLocation = { lat: location.geonames[0].lat, lng: location.geonames[0].lng };
             return addTrip('/api/addTrip', { 
                 departure: {
-                    timestamp: depDateTimestamp,
+                    date: depDate,
                     city: depCity,
                     lat: departCityLocation.lat,
                     lng: departCityLocation.lng
                 },
                 arrival: {
-                    timestamp: arrDateTimestamp,
+                    date: arrDate,
                     city: arrCity,
                     lat: arriveCityLocation.lat,
                     lng: arriveCityLocation.lng
