@@ -68,8 +68,14 @@
     }
     
     #submit {
-        background-color: #FBC02D !important;
-    }
+        background-color: #FBC02D;
+        transition: background-color .5s;
+        &:hover {
+            animation-name: background-color;
+            animation-duration: 500ms;
+            background-color: #ABC02D;
+          }
+    }    
 }
 
 @media(max-width: 349px) {
