@@ -3,8 +3,8 @@ const handleMyTripsClickEvent = (event) => {
 
     toggleActiveItem()
     
-    let section = document.getElementById('home-content')
-    section.replaceWith(buildLayout())
+    let section = document.getElementById('main-content')
+    section.innerHTML = buildLayout().innerHTML
 }
 
 const toggleActiveItem = () => {
@@ -14,10 +14,25 @@ const toggleActiveItem = () => {
 
 const buildLayout = () => {
     const myTripsContentDiv = document.createElement('div')
-    myTripsContentDiv.setAttribute('id', 'main-content')
-    myTripsContentDiv.innerHTML = 'MY TRIPS'
+    myTripsContentDiv.setAttribute('id', 'my-trips-content')
 
-    return myTripsContentDiv
+
+    const title = document.createElement('div')
+    title.classList.add('title')
+
+    const header1 = document.createElement('h1')
+    header1.innerHTML = 'My Trips'
+
+    title.appendChild(header1)
+
+
+    myTripsContentDiv.appendChild(title)
+
+    // this is used as a container to store the html content
+    const wrapper = document.createElement('div')
+    wrapper.appendChild(myTripsContentDiv)
+
+    return wrapper
 }
 
 export { handleMyTripsClickEvent }

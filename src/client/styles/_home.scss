@@ -48,6 +48,15 @@ button.navbar-toggler {
         animation-duration: 500ms;
         background-color: #ABC02D;
     }
+    &::before{
+        position: absolute;
+        font-family: "Font Awesome 5 Free";
+        display: inline-block;
+        -webkit-font-smoothing: antialiased;
+        font-weight: 900; 
+        content: "\f067";
+        left: 20px;
+    }
 }
 
 @media(max-width: 349px) {
@@ -56,7 +65,7 @@ button.navbar-toggler {
         grid-template-columns: 100vw;
         grid-template-rows: 60vh 32vh;
         grid-template-areas: "form"
-                             "bg-image";   
+                             "bg-image";
     }
 }
 
@@ -66,7 +75,7 @@ button.navbar-toggler {
         grid-template-columns: 100vw;
         grid-template-rows: 50vh 42vh;
         grid-template-areas: "form"
-                             "bg-image";    
+                             "bg-image"; 
     }
 }
 
@@ -87,5 +96,6 @@ button.navbar-toggler {
         grid-template-rows: 15vh 77vh;
         grid-template-areas: "form"
                              "bg-image";
+        background-color: #fffff8;
     }
 }

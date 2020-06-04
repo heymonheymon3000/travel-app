@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import places from 'places.js'
-import { addTrip, getAllTrips, getLocation, fetchTripData }  from '../js/api'
+import { addTrip, getLocation, fetchTripData }  from '../js/api'
 
 const handleHomeClickEvent = (event) => {
     event.preventDefault()
@@ -10,28 +10,15 @@ const handleHomeClickEvent = (event) => {
     let section = document.getElementById('main-content')
     section.innerHTML = buildLayout().innerHTML
 
+    addEventListeners()
+}
+
+const addEventListeners = () => {
+    // configure city type ahead on form
     configurePlaces('inputFrom')
     configurePlaces('inputTo')
-    
-    addFormValidationListener()
-}
 
-const configurePlaces = (id) => {
-    places({
-        appId: 'plSJEHE4H2BS',
-        apiKey: '52e9906ede72cff32993b1887418d161',
-        container: document.getElementById(id),
-        templates: {
-            value: function(suggestion) {
-                return suggestion.name;
-            }
-        }}).configure({
-            type: 'city',
-            aroundLatLngViaIP: false,
-    })
-}
-
-const addFormValidationListener = () => {
+    // form validation event listener
     let inputs = document.getElementsByClassName("vcheck")
     Array.prototype.slice.call(inputs).map((input) => {
         input.addEventListener('change', (event) => {
@@ -46,6 +33,24 @@ const addFormValidationListener = () => {
                 document.getElementById('submit').removeAttribute('disabled')
             }
         })
+    })
+
+    // submit button event listener on form
+    document.getElementById('submit').addEventListener('click', handleSubmitEvent)
+}
+
+const configurePlaces = (id) => {
+    places({
+        appId: 'plSJEHE4H2BS',
+        apiKey: '52e9906ede72cff32993b1887418d161',
+        container: document.getElementById(id),
+        templates: {
+            value: function(suggestion) {
+                return suggestion.name;
+            }
+        }}).configure({
+            type: 'city',
+            aroundLatLngViaIP: false,
     })
 }
 
@@ -133,7 +138,6 @@ const createSectionElement = () => {
 
 const createSubmitButton = () => {
     const button = document.createElement('button')
-    button.addEventListener("click", handleSubmitEvent)
     button.setAttribute('type', 'submit')
     button.setAttribute('id', 'submit')
     button.setAttribute('disabled', 'disabled')
@@ -157,7 +161,7 @@ const handleSubmitEvent = (event) => {
         document.getElementById('submit').setAttribute('disabled', 'disabled')
         document.getElementById('inputReturnDate').value = ''
 
-        alert("Please enter in a Return Date that is later than the Departure Date.")
+        alert("Please enter in a Arrival Date that is later than the Departure Date.")
     } else {
         let tripInfo = {}
 
@@ -185,16 +189,15 @@ const handleSubmitEvent = (event) => {
             return fetchTripData(tripInfo)
         })
         .then((trip) => {
+            return addTrip(trip);
+        })
+        .then((trip) => {
             alert(JSON.stringify(trip, null, 2))
             // document.getElementById('inputFrom').value = '';
             // document.getElementById('inputTo').value = '';
             // document.getElementById('inputDepartureDate').value = '';
             // document.getElementById('inputReturnDate').value = '';
             // document.getElementById("my-trips-ref").click();
-            return addTrip(trip);
-        })
-        .then((trip) => {
-            alert(JSON.stringify(trip, null, 2))
         })
         .catch((err) => {
             alert(err.message)
