@@ -8,7 +8,7 @@ const handleHomeClickEvent = (event) => {
     toggleActiveItem()
 
     let section = document.getElementById('main-content')
-    section.replaceWith(buildLayout())
+    section.innerHTML = buildLayout().innerHTML
 
     configurePlaces('inputFrom')
     configurePlaces('inputTo')
@@ -56,11 +56,11 @@ const toggleActiveItem = () => {
 
 const buildLayout = () => {
     const fromDiv = createFormElementDiv()
-    fromDiv.appendChild(createFormLabel('inputFrom', 'From Destination'))
+    fromDiv.appendChild(createFormLabel('inputFrom', 'Departure City'))
     fromDiv.appendChild(createInput('inputFrom', 'text'))
 
     const toDiv = createFormElementDiv()
-    toDiv.appendChild(createFormLabel('inputTo', 'To Destination'))
+    toDiv.appendChild(createFormLabel('inputTo', 'Arrival City'))
     toDiv.appendChild(createInput('inputTo', 'text'))
 
     const departureDateDiv = createFormElementDiv() 
@@ -68,7 +68,7 @@ const buildLayout = () => {
     departureDateDiv.appendChild(createInput('inputDepartureDate', 'date'))
 
     const returnDateDiv = createFormElementDiv() 
-    returnDateDiv.appendChild(createFormLabel('inputReturnDate', 'Return Date'))
+    returnDateDiv.appendChild(createFormLabel('inputReturnDate', 'Arrival Date'))
     returnDateDiv.appendChild(createInput('inputReturnDate', 'date'))
 
     const submitButtonDiv = createFormElementDiv() 
@@ -91,7 +91,10 @@ const buildLayout = () => {
     homeContentDiv.appendChild(form)
     homeContentDiv.appendChild(createSectionElement())
 
-    return homeContentDiv
+    const wrapper = document.createElement('div')
+    wrapper.appendChild(homeContentDiv)
+
+    return wrapper
 }
 
 const createFormLabel = (forAttribute, labelText) => {
@@ -124,7 +127,6 @@ const createFormElementDiv = () => {
 const createSectionElement = () => {
     const section = document.createElement('section')
     section.setAttribute('id', 'bg-image')
-
     return section
 }
 

@@ -1,90 +1,62 @@
-#app {
-    display: grid;
-    grid-template-columns: 100vw;
-    grid-template-rows: 8vh auto;
-    grid-template-areas: "hd"
-                         "mc"; 
-    height: 100vh;
-    justify-content: center;
-
-    header {
-        grid-area: hd;
-        display: flex;
-        flex-direction: column;
-    }
-    
-    .bg-custom {
-        @include linearGradient($darkBlue,$midBlue);
-    }
-    
-    #main-content {
-        grid-area: mc;
-    }
-    
-    .fa-arrows-alt-h {
-        color: red !important;
-        display: grid;
-        place-content: center;
-    }
-
-    // #my-trips-content {
-    
-    // }
-    
-    form {
-        grid-area: f;
-        @include linearGradient($darkBlue,$midBlue);
-        color: #fffff8;
-        display: grid;
-        justify-content: center;
-        align-content: center;
-        padding-top: 1em;
-        padding-left: 1em;
-        padding-right: 1em;
-    }
-
-    nav {
-        height: 100%;
-        padding: 0;
-        z-index: 2;
-    }
-
-    a {
-        margin-left: 1em;
-    }
-
-    button.navbar-toggler {
-        margin-right: 1em;
-    }
-    
-    .ap-suggestion {
-        color: #000000 !important;
-    }
-    
-    #bg-image {
-        grid-area: bi;
-        background-image: url('../img/Travel-the-World.jpg');
-        background-size: cover;
-    }
-    
-    #submit {
-        background-color: #FBC02D;
-        transition: background-color .5s;
-        &:hover {
-            animation-name: background-color;
-            animation-duration: 500ms;
-            background-color: #ABC02D;
-          }
-    }    
-}
-
 @media(max-width: 349px) {
     #home-content {
         display: grid;
         grid-template-columns: 100vw;
-        grid-template-rows: 60vh auto;
-        grid-template-areas: "f"
-                             "bi";
+        grid-template-rows: 60vh 32vh;
+        grid-template-areas: "form"
+                             "bg-image";
+
+        form {
+            grid-area: form;
+            @include linearGradient($darkBlue,$midBlue);
+            color: #fffff8;
+            display: grid;
+            justify-content: center;
+            align-content: center;
+            padding-top: 1em;
+            padding-left: 1em;
+            padding-right: 1em;
+        }
+
+        section#bg-image {
+            grid-area: bg-image;
+            background-image: url('../img/travel-map.svg');
+            background-size: cover;
+        }
+
+        .fa-arrows-alt-h {
+            color: red !important;
+            display: grid;
+            place-content: center;
+        }
+        
+        nav {
+            height: 100%;
+            padding: 0;
+            z-index: 2;
+        }
+        
+        a {
+            margin-left: 1em;
+        }
+        
+        button.navbar-toggler {
+            margin-right: 1em;
+        }
+        
+        .ap-suggestion {
+            color: #000000 !important;
+        }
+        
+        #submit {
+            background-color: #FBC02D;
+            transition: background-color .5s;
+            &:hover {
+                animation-name: background-color;
+                animation-duration: 500ms;
+                background-color: #ABC02D;
+            }
+        }    
     }
 }
 
@@ -92,9 +64,61 @@
     #home-content {
         display: grid;
         grid-template-columns: 100vw;
-        grid-template-rows: 50vh auto;
-        grid-template-areas: "f"
-                             "bi";
+        grid-template-rows: 50vh 42vh;
+        grid-template-areas: "form"
+                             "bg-image";
+
+        form {
+            grid-area: form;
+            @include linearGradient($darkBlue,$midBlue);
+            color: #fffff8;
+            display: grid;
+            justify-content: center;
+            align-content: center;
+            padding-top: 1em;
+            padding-left: 1em;
+            padding-right: 1em;
+        }
+
+        section#bg-image {
+            grid-area: bg-image;
+            background-image: url('../img/travel-map.svg');
+            background-size: cover;
+        }
+
+        .fa-arrows-alt-h {
+            color: red !important;
+            display: grid;
+            place-content: center;
+        }
+    
+        nav {
+            height: 100%;
+            padding: 0;
+            z-index: 2;
+        }
+        
+        a {
+            margin-left: 1em;
+        }
+        
+        button.navbar-toggler {
+            margin-right: 1em;
+        }
+        
+        .ap-suggestion {
+            color: #000000 !important;
+        }
+        
+        #submit {
+            background-color: #FBC02D;
+            transition: background-color .5s;
+            &:hover {
+                animation-name: background-color;
+                animation-duration: 500ms;
+                background-color: #ABC02D;
+            }
+        }    
     }
 }
 
@@ -102,9 +126,61 @@
     #home-content {
         display: grid;
         grid-template-columns: 100vw;
-        grid-template-rows: 35vh auto;
-        grid-template-areas: "f"
-                             "bi";
+        grid-template-rows: 35vh 57vh;
+        grid-template-areas: "form"
+                             "bg-image";
+
+        form {
+            grid-area: form;
+            @include linearGradient($darkBlue,$midBlue);
+            color: #fffff8;
+            display: grid;
+            justify-content: center;
+            align-content: center;
+            padding-top: 1em;
+            padding-left: 1em;
+            padding-right: 1em;
+        }
+
+        section#bg-image {
+            grid-area: bg-image;
+            background-image: url('../img/travel-map.svg');
+            background-size: cover;
+        }
+
+        .fa-arrows-alt-h {
+            color: red !important;
+            display: grid;
+            place-content: center;
+        }
+        
+        nav {
+            height: 100%;
+            padding: 0;
+            z-index: 2;
+        }
+        
+        a {
+            margin-left: 1em;
+        }
+        
+        button.navbar-toggler {
+            margin-right: 1em;
+        }
+        
+        .ap-suggestion {
+            color: #000000 !important;
+        }
+        
+        #submit {
+            background-color: #FBC02D;
+            transition: background-color .5s;
+            &:hover {
+                animation-name: background-color;
+                animation-duration: 500ms;
+                background-color: #ABC02D;
+            }
+        }    
     }
 }
 
@@ -112,8 +188,60 @@
     #home-content {
         display: grid;
         grid-template-columns: 100vw;
-        grid-template-rows: 15vh auto;
-        grid-template-areas: "f"
-                             "bi";
+        grid-template-rows: 15vh 77vh;
+        grid-template-areas: "form"
+                             "bg-image";
+        
+        form {
+            grid-area: form;
+            @include linearGradient($darkBlue,$midBlue);
+            color: #fffff8;
+            display: grid;
+            justify-content: center;
+            align-content: center;
+            padding-top: 1em;
+            padding-left: 1em;
+            padding-right: 1em;
+        }
+
+        section#bg-image {
+            grid-area: bg-image;
+            background-image: url('../img/travel-map.svg');
+            background-size: cover;
+        }
+
+        .fa-arrows-alt-h {
+            color: red !important;
+            display: grid;
+            place-content: center;
+        }
+    
+        nav {
+            height: 100%;
+            padding: 0;
+            z-index: 2;
+        }
+        
+        a {
+            margin-left: 1em;
+        }
+        
+        button.navbar-toggler {
+            margin-right: 1em;
+        }
+        
+        .ap-suggestion {
+            color: #000000 !important;
+        }
+        
+        #submit {
+            background-color: #FBC02D;
+            transition: background-color .5s;
+            &:hover {
+                animation-name: background-color;
+                animation-duration: 500ms;
+                background-color: #ABC02D;
+            }
+        }    
     }
 }
