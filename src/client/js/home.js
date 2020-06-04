@@ -91,6 +91,7 @@ const buildLayout = () => {
     homeContentDiv.appendChild(form)
     homeContentDiv.appendChild(createSectionElement())
 
+    // this is used as a container to store the html content
     const wrapper = document.createElement('div')
     wrapper.appendChild(homeContentDiv)
 
@@ -185,27 +186,15 @@ const handleSubmitEvent = (event) => {
         })
         .then((trip) => {
             alert(JSON.stringify(trip, null, 2))
-
-
             // document.getElementById('inputFrom').value = '';
             // document.getElementById('inputTo').value = '';
             // document.getElementById('inputDepartureDate').value = '';
             // document.getElementById('inputReturnDate').value = '';
             // document.getElementById("my-trips-ref").click();
-
             return addTrip(trip);
         })
         .then((trip) => {
-            alert("RETURN FROM SERVER")
-
             alert(JSON.stringify(trip, null, 2))
-
-            return getAllTrips();
-        })
-        .then((trips) => {
-            alert("ALL TRIPS RETURN FROM SERVER")
-
-            alert(JSON.stringify(trips, null, 2))
         })
         .catch((err) => {
             alert(err.message)

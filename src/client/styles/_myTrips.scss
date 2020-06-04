@@ -1,5 +1,55 @@
 #my-trips-content {
     background-color: #ffffff;
+
+    .clear-day {
+        background-image: url('../img/clear-day.svg');
+        background-size: cover;
+    }
+
+    .clear-night {
+        background-image: url('../img/clear-night.svg');
+        background-size: cover;
+    }
+
+    .cloudy {
+        background-image: url('../img/cloudy.svg');
+        background-size: cover;
+    }
+
+    .fog {
+        background-image: url('../img/fog.svg');
+        background-size: cover;
+    }
+
+    .partly-cloudy-day {
+        background-image: url('../img/partly-cloudy-day.svg');
+        background-size: cover;
+    }
+
+    .partly-cloudy-night {
+        background-image: url('../img/partly-cloudy-night.svg');
+        background-size: cover;
+    }
+
+    .rain {
+        background-image: url('../img/rain.svg');
+        background-size: cover;
+    }
+
+    .sleet {
+        background-image: url('../img/sleet.svg');
+        background-size: cover;
+    }
+
+    .snow {
+        background-image: url('../img/snow.svg');
+        background-size: cover;
+    }
+
+    .wind {
+        background-image: url('../img/wind.svg');
+        background-size: cover;
+    }
 }
 
 /* Anything smaller than first breakpoint 600px */
