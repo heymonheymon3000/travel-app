@@ -16,6 +16,10 @@ section#bg-image {
     background-size: cover;
 }
 
+label {
+    font-weight: bold;
+}
+
 .fa-arrows-alt-h {
     color: red !important;
     display: grid;
@@ -43,6 +47,8 @@ button.navbar-toggler {
 #submit {
     background-color: #FBC02D;
     transition: background-color .5s;
+    color: #ffffff;
+    font-weight: bold;
     &:hover {
         animation-name: background-color;
         animation-duration: 500ms;

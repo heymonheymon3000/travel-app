@@ -14,7 +14,7 @@ const handleHomeClickEvent = (event) => {
 }
 
 const addEventListeners = () => {
-    // configure city type ahead on form
+    // configure city type-ahead on form
     configurePlaces('inputFrom')
     configurePlaces('inputTo')
 
@@ -192,12 +192,12 @@ const handleSubmitEvent = (event) => {
             return addTrip(trip);
         })
         .then((trip) => {
-            alert(JSON.stringify(trip, null, 2))
-            // document.getElementById('inputFrom').value = '';
-            // document.getElementById('inputTo').value = '';
-            // document.getElementById('inputDepartureDate').value = '';
-            // document.getElementById('inputReturnDate').value = '';
-            // document.getElementById("my-trips-ref").click();
+            document.getElementById('inputFrom').value = '';
+            document.getElementById('inputTo').value = '';
+            document.getElementById('inputDepartureDate').value = '';
+            document.getElementById('inputReturnDate').value = '';
+            
+            document.getElementById("my-trips-ref").click();
         })
         .catch((err) => {
             alert(err.message)

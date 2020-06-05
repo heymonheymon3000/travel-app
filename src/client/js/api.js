@@ -61,22 +61,36 @@ const fetchTripData = async (data) => {
 
     return Promise.all([departureWeather.json(), departureView.json(), arrivalWeather.json(), arrivalView.json()])
     .then((results) => {
-        tripData['depCity-city'] = departure.city
-        tripData['depCity-date'] = new Date(departure.date+" ").toDateString()
-        tripData['depCity-lat'] = departure.lat
-        tripData['depCity-lng'] = departure.lng
-        tripData['depCity-summary'] = results[0].currently.summary
-        tripData['depCity-icon'] = results[0].currently.icon
-        tripData['depCity-temperature'] = results[0].currently.temperature
-        tripData['depCity-webformatURL'] = results[1].hits[0].webformatURL
-        tripData['arrCity-city'] = arrival.city
-        tripData['arrCity-date'] = new Date(arrival.date+" ").toDateString()
-        tripData['arrCity-lat'] = arrival.lat
-        tripData['arrCity-lng'] = arrival.lng
-        tripData['arrCity-summary'] = results[2].currently.summary
-        tripData['arrCity-icon'] = results[2].currently.icon
-        tripData['arrCity-temperature'] = results[2].currently.temperature
-        tripData['arrCity-webformatURL'] = results[3].hits[0].webformatURL
+        console.log(tripData)
+
+        // departure data
+        _.merge(tripData, {departure : {
+            city: departure.city,
+            date: new Date(departure.date+" ").toDateString(),
+            lat: departure.lat,
+            lng: departure.lng,
+            summary: results[0].currently.summary,
+            icon:  results[0].currently.icon,
+            temperature: results[0].currently.temperature,
+            webformatURL: results[1].hits[0].webformatURL
+        }})
+
+        console.log(tripData)
+
+        // arrival data
+         _.merge(tripData, {arrival : {
+            city: arrival.city,
+            date: new Date(arrival.date+" ").toDateString(),
+            lat: arrival.lat,
+            lng: arrival.lng,
+            summary: results[2].currently.summary,
+            icon:  results[2].currently.icon,
+            temperature: results[2].currently.temperature,
+            webformatURL: results[3].hits[0].webformatURL
+        }})
+
+        console.log(tripData)
+
         return tripData
     })
 }
