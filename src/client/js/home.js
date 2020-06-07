@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import places from 'places.js'
 import { addTrip, getLocation, fetchTripData }  from '../js/api'
+import { hideSpinner, showSpinner}  from '../js/spinner'
 
 const handleHomeClickEvent = (event) => {
     event.preventDefault()
@@ -150,6 +151,8 @@ const createSubmitButton = () => {
 }
 
 const handleSubmitEvent = (event) => {
+    
+
     event.preventDefault()
 
     const depCity = document.getElementById('inputFrom').value
@@ -163,6 +166,8 @@ const handleSubmitEvent = (event) => {
 
         alert("Please enter in a Arrival Date that is later than the Departure Date.")
     } else {
+        showSpinner()
+
         let tripInfo = {}
 
         getLocation(depCity)
@@ -189,7 +194,7 @@ const handleSubmitEvent = (event) => {
             return fetchTripData(tripInfo)
         })
         .then((trip) => {
-            return addTrip(trip);
+            return addTrip(trip)
         })
         .then((trip) => {
             document.getElementById('inputFrom').value = '';
@@ -201,7 +206,10 @@ const handleSubmitEvent = (event) => {
         })
         .catch((err) => {
             alert(err.message)
-        });
+        })
+        .finally(() =>{
+            hideSpinner()
+        })
     }
 }
 

@@ -1,14 +1,14 @@
 import { getAllTrips, removeTrip  }  from '../js/api'
+import { hideSpinner, showSpinner}  from '../js/spinner'
 
 const handleMyTripsClickEvent = (event) => {
     event.preventDefault()
-
     toggleActiveItem()
-    
     initPage()
 }
 
 const initPage = () => {
+    showSpinner()
     getAllTrips()
     .then((trips) => {
         let section = document.getElementById('main-content')
@@ -18,23 +18,33 @@ const initPage = () => {
     .catch((err) => {
         alert(err)
     })
+    .finally(() => {
+        hideSpinner()
+    })
 }
 
 const addEventListeners = (trips) => {
     for(const trip of trips) {
         document.getElementById(trip.id).addEventListener('click', (event) => {
+            showSpinner()
             removeTrip(trip.id)
             .then(() => {
                 const parentElement = document.getElementById('card-container')
                 const removeElement = document.getElementById('c-id-'+trip.id)
                 parentElement.removeChild(removeElement)
-
-                alert("Your trip to " + trip.arrival.city + " has been deleted.")
-
                 initPage()
+            })
+            .then(() => {
+                // before showing alert give a little delay so that the element can be removed from the DOM
+                setTimeout(() => {
+                    alert("Your trip to " + trip.arrival.city + " has been deleted.")
+                }, 100);
             })
             .catch((err) => {
                 alert(err)
+            })
+            .finally(() => {
+                hideSpinner()
             })
         })
     }
@@ -76,7 +86,6 @@ const buildLayout = (trips) => {
     // to populate the DOM
     const wrapper = document.createElement('div')
     wrapper.appendChild(myTripsContentDiv)
-
     return wrapper
 }
 
@@ -155,7 +164,6 @@ const createCard = (trip) => {
     article.appendChild(img)
     article.appendChild(cardBody)
     article.appendChild(createFooter(id))
-
     return article
 }
 
@@ -166,7 +174,6 @@ const createCardTitleCity = (city) => {
     cityElement.classList.add('mb-0')
     cityElement.classList.add('text-center')
     cityElement.innerHTML = city
-
     return cityElement
 }
 
@@ -176,7 +183,6 @@ const createCardTitleDate = (date) => {
     dateElement.classList.add('text-center')
     dateElement.classList.add('mt-0')
     dateElement.innerHTML = date
-
     return dateElement
 }
 
@@ -211,7 +217,6 @@ const createWeatherIcon = (icon, temp) => {
     row.classList.add('pl-0')
     row.appendChild(col1)
     row.appendChild(col2)
-
     return row
 }
 
@@ -223,7 +228,6 @@ const createWeatherSummary = (summary) => {
     summaryElement.classList.add('mt-0')
     summaryElement.classList.add('mb-0')
     summaryElement.innerHTML = summary
-
     return summaryElement
 }
 
@@ -237,7 +241,6 @@ const createDeleteButton = (id) => {
     button.setAttribute('id', id)
     button.innerHTML = 'Delete Trip'
     button.classList.add("mb-2")
-
     return button
 }
 
