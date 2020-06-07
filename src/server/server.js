@@ -29,7 +29,7 @@ app.get('/api/allTrips', function (req, res) {
 
 app.delete('/api/removeTrip/:id', function (req, res) {
     tripData = tripData.filter((trip) => (trip.id !== req.params.id))
-    res.status(200).send(tripData);
+    res.sendStatus(200);
 })
 
 app.listen(3000, function () {

@@ -42,7 +42,7 @@ const removeTrip = async (id = '') => {
     })
 
     if (res.ok) {
-        return await res.json()
+        return
     } else {
         let error = new Error(res.statusText)
         error.res = res

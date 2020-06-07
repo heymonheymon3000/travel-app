@@ -28,6 +28,8 @@ const addEventListeners = (trips) => {
                 const parentElement = document.getElementById('card-container')
                 const removeElement = document.getElementById('c-id-'+trip.id)
                 parentElement.removeChild(removeElement)
+
+                initPage()
             })
             .catch((err) => {
                 alert(err)
@@ -51,6 +53,12 @@ const buildLayout = (trips) => {
 
     const cardContainer = document.createElement('div')
     cardContainer.setAttribute('id', 'card-container')
+
+    if(trips.length === 0) {
+        const div = document.createElement('div')
+        div.innerHTML = '<h2>Currently you do not any saved trips!!!</h2>'
+        cardContainer.appendChild(div)
+    }
 
     for (const trip of trips) {
         cardContainer.appendChild(createCard(trip))
