@@ -61,7 +61,6 @@ const fetchTripData = async (data) => {
 
     return Promise.all([departureWeather.json(), departureView.json(), arrivalWeather.json(), arrivalView.json()])
     .then((results) => {
-        console.log(tripData)
 
         // departure data
         _.merge(tripData, {departure : {
@@ -74,8 +73,6 @@ const fetchTripData = async (data) => {
             temperature: results[0].currently.temperature,
             webformatURL: results[1].hits[0].webformatURL
         }})
-
-        console.log(tripData)
 
         // arrival data
          _.merge(tripData, {arrival : {

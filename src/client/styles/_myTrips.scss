@@ -5,7 +5,6 @@
     grid-template-areas: "title"
                          "card-container";
     
-    
     .title {
         grid-area: title;
         display: grid;
@@ -14,7 +13,17 @@
         padding-left: 1em;
         padding-right: 1em;
         @include linearGradient($darkBlue,$midBlue);
-       
+        font-weight: bold;
+    }
+
+    .card-header {
+        // background-color: #FBC02D;
+        font-weight: bold;
+    }
+
+    .card-footer {
+        // background-color: #FBC02D;
+        font-weight: bold;
     }
 
     h1 {
@@ -34,7 +43,33 @@
         flex-wrap: wrap;
         justify-content: space-evenly;
     }
-    
+
+    card-body {
+        @include linearGradient($darkBlue,$midBlue);
+        color: #ffffff;
+    }
+
+    // .card {
+    //     // border: 0;
+    // }
+
+    hr {
+        color: #ffffff;
+        border-color: #ffffff;
+    }
+
+    .temperature {
+        font-size: 2rem;
+        align-self: center;
+        padding: 0;
+    }
+
+    .icon-size {
+        width: 5rem;
+        height: 5rem;
+        padding: 0;
+    }
+ 
     .clear-day {
         background-image: url('../img/clear-day.svg');
         background-size: cover;
@@ -44,7 +79,7 @@
         background-image: url('../img/clear-night.svg');
         background-size: cover;
     }
-    
+
     .cloudy {
         background-image: url('../img/cloudy.svg');
         background-size: cover;
@@ -59,7 +94,7 @@
         background-image: url('../img/partly-cloudy-day.svg');
         background-size: cover;
     }
-    
+
     .partly-cloudy-night {
         background-image: url('../img/partly-cloudy-night.svg');
         background-size: cover;
@@ -69,7 +104,7 @@
         background-image: url('../img/rain.svg');
         background-size: cover;
     }
-    
+
     .sleet {
         background-image: url('../img/sleet.svg');
         background-size: cover;
@@ -86,11 +121,7 @@
     }
 }
 
-// @media screen and (min-width: 40em) {
-//     .card {
-//        max-width: calc(50% -  1em);
-//     }
-// }
+
  
 // @media screen and (min-width: 60em) {
 //     .card {
@@ -105,7 +136,7 @@
 // @media (min-width: 350px) and (max-width: 659px) {
 // }
 
-// @media (min-width: 660px) and (max-width:1190px) {
+// @media (min-width: 68rem) and (max-width:1190px) {
 // }
 
 // @media (min-width: 1191px) {

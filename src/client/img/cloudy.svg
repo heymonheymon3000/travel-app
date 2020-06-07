@@ -3,7 +3,7 @@
 <svg version="1.2" baseProfile="tiny" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
 	 x="0px" y="0px" width="128px" height="127.997px" viewBox="0 0 128 127.997" xml:space="preserve">
 <g>
-	<rect fill="#999999" width="128" height="127.997"/>
+	<rect fill="transparent" fill-opacity="transparent" width="128" height="127.997"/>
 	<g>
 		<g>
 			<path fill="#CCCCCC" d="M114.427,71.507c0-13.875-11.247-25.125-25.128-25.125c-2.284,0-4.498,0.311-6.605,0.884
