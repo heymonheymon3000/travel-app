@@ -48,6 +48,14 @@ const addEventListeners = (trips) => {
             })
         })
     }
+
+    // form validation event listener
+    let addButtons = document.getElementsByClassName("add")
+    Array.prototype.slice.call(addButtons).map((addButton) => {
+        addButton.addEventListener('click', (event) => {
+            document.getElementById("home-ref").click();
+        })
+    })
 }
 
 const toggleActiveItem = () => {
@@ -238,8 +246,8 @@ const createAddButton = () => {
     button.classList.add('btn-secondary')
     button.classList.add('add')
     button.setAttribute('type', 'button')
-    button.setAttribute('id', id)
-    button.innerHTML = 'All Trip'
+    button.setAttribute('id', 'add-button')
+    button.innerHTML = '<i class="fa fa-plus" aria-hidden="true"></i> Add Trip'
     button.classList.add("mb-2")
     return button
 }
@@ -252,7 +260,7 @@ const createDeleteButton = (id) => {
     button.classList.add('delete')
     button.setAttribute('type', 'button')
     button.setAttribute('id', id)
-    button.innerHTML = 'Delete Trip'
+    button.innerHTML = '<i class="fa fa-trash" aria-hidden="true"></i> Delete Trip'
     button.classList.add("mb-2")
     return button
 }
@@ -260,14 +268,20 @@ const createDeleteButton = (id) => {
 const createFooter = (id) => {
     const col1 = document.createElement('div')
     col1.classList.add('col')
-    col2.appendChild(createAddButton())
+    col1.classList.add('text-center')
+    col1.classList.add('mx-auto')
+    col1.appendChild(createAddButton())
 
     const col2 = document.createElement('div') 
     col2.classList.add('col')
+    col2.classList.add('text-center')
+    col2.classList.add('mx-auto')
     col2.appendChild(createDeleteButton(id))
    
     const row = document.createElement('div')
     row.classList.add('row')
+    row.classList.add('text-center')
+    row.classList.add('mx-auto')
     row.appendChild(col1)
     row.appendChild(col2)
     const footer = document.createElement('div')

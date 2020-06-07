@@ -78,21 +78,23 @@
  
     .delete {
         transition: background-color .5s;
-        font-weight: bold;
         border: 0;
+        width: 10rem;
         &:hover {
             animation-name: background-color;
             animation-duration: 500ms;
             background-color: #ABC02D;
         }
-        &::before{
-            position: absolute;
-            font-family: "Font Awesome 5 Free";
-            display: inline-block;
-            -webkit-font-smoothing: antialiased;
-            font-weight: 900; 
-            content: "\f1f8";
-            left: 110px;
+    }
+
+    .add {
+        transition: background-color .5s;
+        border: 0;
+        width: 10rem;
+        &:hover {
+            animation-name: background-color;
+            animation-duration: 500ms;
+            background-color: #ABC02D;
         }
     }
 

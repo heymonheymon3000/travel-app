@@ -35,15 +35,6 @@ form {
             animation-duration: 500ms;
             background-color: #ABC02D;
         }
-        &::before{
-            position: absolute;
-            font-family: "Font Awesome 5 Free";
-            display: inline-block;
-            -webkit-font-smoothing: antialiased;
-            font-weight: 900; 
-            content: "\f067";
-            left: 20px;
-        }
     }
 }
 

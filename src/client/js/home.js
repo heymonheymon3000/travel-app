@@ -5,12 +5,9 @@ import { hideSpinner, showSpinner}  from '../js/spinner'
 
 const handleHomeClickEvent = (event) => {
     event.preventDefault()
-
     toggleActiveItem()
-
     let section = document.getElementById('main-content')
     section.innerHTML = buildLayout().innerHTML
-
     addEventListeners()
 }
 
@@ -23,6 +20,7 @@ const addEventListeners = () => {
     let inputs = document.getElementsByClassName("vcheck")
     Array.prototype.slice.call(inputs).map((input) => {
         input.addEventListener('change', (event) => {
+            event.preventDefault()
             const inputFrom = document.getElementById('inputFrom').value
             const inputTo = document.getElementById('inputTo').value
             const inputDepartureDate = document.getElementById('inputDepartureDate').value
@@ -35,7 +33,6 @@ const addEventListeners = () => {
             }
         })
     })
-
     // submit button event listener on form
     document.getElementById('submit').addEventListener('click', handleSubmitEvent)
 }
@@ -100,7 +97,6 @@ const buildLayout = () => {
     // this is used as a container to store the html content
     const wrapper = document.createElement('div')
     wrapper.appendChild(homeContentDiv)
-
     return wrapper
 }
 
@@ -108,7 +104,6 @@ const createFormLabel = (forAttribute, labelText) => {
     const label = document.createElement('label')
     label.setAttribute('for', forAttribute)
     label.innerHTML = labelText
-
     return label
 }
 
@@ -119,7 +114,6 @@ const createInput = (id, type) => {
     input.classList.add('vcheck')
     input.classList.add('form-control')
     input.setAttribute('type', type)
-
     return input
 }
 
@@ -127,7 +121,6 @@ const createFormElementDiv = () => {
     const div = document.createElement('div')
     div.classList.add('col-auto')
     div.classList.add('form-group')
-
     return div;
 }
 
@@ -143,18 +136,14 @@ const createSubmitButton = () => {
     button.setAttribute('id', 'submit')
     button.setAttribute('disabled', 'disabled')
     button.classList.add('form-control')
-    button.innerHTML = 'Submit'
+    button.innerHTML = '<i class="fa fa-plus" aria-hidden="true"></i> Add Trip'
     button.classList.add("btn")
     button.classList.add("mb-2")
-
     return button
 }
 
 const handleSubmitEvent = (event) => {
-    
-
     event.preventDefault()
-
     const depCity = document.getElementById('inputFrom').value
     const arrCity = document.getElementById('inputTo').value
     const depDate = document.getElementById('inputDepartureDate').value
@@ -166,20 +155,17 @@ const handleSubmitEvent = (event) => {
 
         alert("Please enter in a Arrival Date that is later than the Departure Date.")
     } else {
-        showSpinner()
-
         let tripInfo = {}
-
+        
+        showSpinner()
         getLocation(depCity)
         .then((location) => {
             if(location.geonames.length === 0) {
                 document.getElementById('inputFrom').value = ''
                 throw new Error("The Destination city " + depCity + " is not a valid city")
             }
-
             _.merge(tripInfo, {departure: { city: depCity, date: depDate, 
                 lat: location.geonames[0].lat, lng: location.geonames[0].lng }})
-
             return getLocation(arrCity)
         })
         .then((location) => {
@@ -187,10 +173,8 @@ const handleSubmitEvent = (event) => {
                 document.getElementById('inputTo').value = '';
                 throw new Error("The Arrival city " + arrCity + " is not a valid city")
             }
-
             _.merge(tripInfo, {arrival: {city: arrCity, date: arrDate, 
                 lat: location.geonames[0].lat, lng: location.geonames[0].lng }})
-
             return fetchTripData(tripInfo)
         })
         .then((trip) => {
@@ -201,7 +185,8 @@ const handleSubmitEvent = (event) => {
             document.getElementById('inputTo').value = '';
             document.getElementById('inputDepartureDate').value = '';
             document.getElementById('inputReturnDate').value = '';    
-
+        })
+        .then(() => {
             alert("Your trip to " + arrCity + " has been saved.")
         })
         .catch((err) => {
