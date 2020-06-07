@@ -16,6 +16,10 @@
         font-weight: bold;
     }
 
+    .card {
+        border: 0;
+    }
+
     .card-header {
         // background-color: #FBC02D;
         font-weight: bold;
@@ -37,7 +41,7 @@
         height: 250px;
     }
     
-    .card-container {
+    #card-container {
         grid-area: card-container;
         display: flex;
         flex-wrap: wrap;
@@ -49,27 +53,43 @@
         color: #ffffff;
     }
 
-    // .card {
-    //     // border: 0;
-    // }
-
     hr {
         color: #ffffff;
         border-color: #ffffff;
     }
 
     .temperature {
-        font-size: 2rem;
+        font-size: 2.5rem;
         align-self: center;
         padding: 0;
     }
 
     .icon-size {
-        width: 5rem;
-        height: 5rem;
+        width: 6rem;
+        height: 6rem;
         padding: 0;
     }
  
+    .delete {
+        transition: background-color .5s;
+        font-weight: bold;
+        border: 0;
+        &:hover {
+            animation-name: background-color;
+            animation-duration: 500ms;
+            background-color: #ABC02D;
+        }
+        &::before{
+            position: absolute;
+            font-family: "Font Awesome 5 Free";
+            display: inline-block;
+            -webkit-font-smoothing: antialiased;
+            font-weight: 900; 
+            content: "\f1f8";
+            left: 110px;
+        }
+    }
+
     .clear-day {
         background-image: url('../img/clear-day.svg');
         background-size: cover;

@@ -1,18 +1,39 @@
-import { getAllTrips  }  from '../js/api'
+import { getAllTrips, removeTrip  }  from '../js/api'
 
 const handleMyTripsClickEvent = (event) => {
     event.preventDefault()
 
     toggleActiveItem()
     
+    initPage()
+}
+
+const initPage = () => {
     getAllTrips()
     .then((trips) => {
         let section = document.getElementById('main-content')
         section.innerHTML = buildLayout(trips).innerHTML
+        addEventListeners(trips)
     })
     .catch((err) => {
         alert(err)
     })
+}
+
+const addEventListeners = (trips) => {
+    for(const trip of trips) {
+        document.getElementById(trip.id).addEventListener('click', (event) => {
+            removeTrip(trip.id)
+            .then(() => {
+                const parentElement = document.getElementById('card-container')
+                const removeElement = document.getElementById('c-id-'+trip.id)
+                parentElement.removeChild(removeElement)
+            })
+            .catch((err) => {
+                alert(err)
+            })
+        })
+    }
 }
 
 const toggleActiveItem = () => {
@@ -29,7 +50,7 @@ const buildLayout = (trips) => {
     title.appendChild(header1)
 
     const cardContainer = document.createElement('div')
-    cardContainer.classList.add('card-container')
+    cardContainer.setAttribute('id', 'card-container')
 
     for (const trip of trips) {
         cardContainer.appendChild(createCard(trip))
@@ -48,6 +69,7 @@ const buildLayout = (trips) => {
 }
 
 const createCard = (trip) => {
+    const id = trip.id
     const departure = trip.departure
     const arrival = trip.arrival
 
@@ -97,7 +119,8 @@ const createCard = (trip) => {
 
     const article = document.createElement('article')
     article.classList.add("card")
-    article.classList.add("m-2")
+    article.classList.add("m-2")    
+    article.setAttribute('id', 'c-id-'+id)
     article.setAttribute("style", "width: 24rem;")
 
     const cardHeader = document.createElement('div')
@@ -107,7 +130,7 @@ const createCard = (trip) => {
     article.appendChild(cardHeader)
     article.appendChild(img)
     article.appendChild(cardBody)
-    article.appendChild(createFooter())
+    article.appendChild(createFooter(id))
 
     return article
 }
@@ -158,12 +181,25 @@ const createWeatherIcon = (icon, temp) => {
     return row
 }
 
-const createFooter = () => {
+const createFooter = (id) => {
     const footer = document.createElement('div')
     footer.classList.add('card-footer')
-    footer.innerText = 'footer'
-
+    footer.appendChild(createDeleteButton(id))
     return footer
+}
+
+const createDeleteButton = (id) => {
+    const button = document.createElement('button')
+    button.classList.add('btn-block')
+    button.classList.add('btn-lg')
+    button.classList.add('btn-secondary')
+    button.classList.add('delete')
+    button.setAttribute('type', 'button')
+    button.setAttribute('id', id)
+    button.innerHTML = 'Delete Trip'
+    button.classList.add("mb-2")
+
+    return button
 }
 
 export { handleMyTripsClickEvent }

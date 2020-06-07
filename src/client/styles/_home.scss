@@ -1,3 +1,15 @@
+nav {
+    height: 100%;
+    padding: 0;
+    a {
+        margin-left: 1em;
+    }
+
+    button.navbar-toggler {
+        margin-right: 1em;
+    }
+}
+
 form {
     grid-area: form;
     @include linearGradient($darkBlue,$midBlue);
@@ -8,56 +20,37 @@ form {
     padding-top: 1em;
     padding-left: 1em;
     padding-right: 1em;
+
+    .ap-suggestion {
+        color: #000000 !important;
+    }
+
+    #submit {
+        background-color: #FBC02D;
+        transition: background-color .5s;
+        color: #ffffff;
+        font-weight: bold;
+        &:hover {
+            animation-name: background-color;
+            animation-duration: 500ms;
+            background-color: #ABC02D;
+        }
+        &::before{
+            position: absolute;
+            font-family: "Font Awesome 5 Free";
+            display: inline-block;
+            -webkit-font-smoothing: antialiased;
+            font-weight: 900; 
+            content: "\f067";
+            left: 20px;
+        }
+    }
 }
 
 section#bg-image {
     grid-area: bg-image;
     background-image: url('../img/travel-map.svg');
     background-size: cover;
-}
-
-.fa-arrows-alt-h {
-    color: red !important;
-    display: grid;
-    place-content: center;
-}
-
-nav {
-    height: 100%;
-    padding: 0;
-}
-
-a {
-    margin-left: 1em;
-}
-
-button.navbar-toggler {
-    margin-right: 1em;
-}
-
-.ap-suggestion {
-    color: #000000 !important;
-}
-
-#submit {
-    background-color: #FBC02D;
-    transition: background-color .5s;
-    color: #ffffff;
-    font-weight: bold;
-    &:hover {
-        animation-name: background-color;
-        animation-duration: 500ms;
-        background-color: #ABC02D;
-    }
-    &::before{
-        position: absolute;
-        font-family: "Font Awesome 5 Free";
-        display: inline-block;
-        -webkit-font-smoothing: antialiased;
-        font-weight: 900; 
-        content: "\f067";
-        left: 20px;
-    }
 }
 
 @media(max-width: 349px) {

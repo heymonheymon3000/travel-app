@@ -195,9 +195,7 @@ const handleSubmitEvent = (event) => {
             document.getElementById('inputFrom').value = '';
             document.getElementById('inputTo').value = '';
             document.getElementById('inputDepartureDate').value = '';
-            document.getElementById('inputReturnDate').value = '';
-            
-            document.getElementById("my-trips-ref").click();
+            document.getElementById('inputReturnDate').value = '';            
         })
         .catch((err) => {
             alert(err.message)

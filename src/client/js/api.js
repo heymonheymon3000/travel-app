@@ -36,6 +36,20 @@ const getAllTrips = async () => {
     }
 }
 
+const removeTrip = async (id = '') => {
+    const res = await fetch('/api/removeTrip/'+id, {
+        method: "DELETE"
+    })
+
+    if (res.ok) {
+        return await res.json()
+    } else {
+        let error = new Error(res.statusText)
+        error.res = res
+        throw error
+    }
+}
+
 const getLocation = async (city = '') => {    
     const res = await fetch(GEONAMES_URL + city + "&username=" + USERNAME + "&maxRows=1")
 
@@ -86,13 +100,12 @@ const fetchTripData = async (data) => {
             webformatURL: results[3].hits[0].webformatURL
         }})
 
-        console.log(tripData)
-
         return tripData
     })
 }
     
 export {
+    removeTrip,
     addTrip,
     getAllTrips,
     getLocation,
