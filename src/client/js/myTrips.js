@@ -231,9 +231,22 @@ const createWeatherSummary = (summary) => {
     return summaryElement
 }
 
+const createAddButton = () => {
+    const button = document.createElement('button')
+    button.classList.add('btn')
+    button.classList.add('btn-lg')
+    button.classList.add('btn-secondary')
+    button.classList.add('add')
+    button.setAttribute('type', 'button')
+    button.setAttribute('id', id)
+    button.innerHTML = 'All Trip'
+    button.classList.add("mb-2")
+    return button
+}
+
 const createDeleteButton = (id) => {
     const button = document.createElement('button')
-    button.classList.add('btn-block')
+    button.classList.add('btn')
     button.classList.add('btn-lg')
     button.classList.add('btn-secondary')
     button.classList.add('delete')
@@ -245,9 +258,21 @@ const createDeleteButton = (id) => {
 }
 
 const createFooter = (id) => {
+    const col1 = document.createElement('div')
+    col1.classList.add('col')
+    col2.appendChild(createAddButton())
+
+    const col2 = document.createElement('div') 
+    col2.classList.add('col')
+    col2.appendChild(createDeleteButton(id))
+   
+    const row = document.createElement('div')
+    row.classList.add('row')
+    row.appendChild(col1)
+    row.appendChild(col2)
     const footer = document.createElement('div')
     footer.classList.add('card-footer')
-    footer.appendChild(createDeleteButton(id))
+    footer.appendChild(row)
     return footer
 }
 
