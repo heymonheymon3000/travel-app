@@ -29,6 +29,8 @@ const addEventListeners = (trips) => {
                 const removeElement = document.getElementById('c-id-'+trip.id)
                 parentElement.removeChild(removeElement)
 
+                alert("Your trip to " + trip.arrival.city + " has been deleted.")
+
                 initPage()
             })
             .catch((err) => {
@@ -69,7 +71,9 @@ const buildLayout = (trips) => {
     myTripsContentDiv.appendChild(title)
     myTripsContentDiv.appendChild(cardContainer)
 
-    // this is used as a container to store the html content
+    // this is used as a container to store the html contents
+    // later we will grab the innerHTML out of this container 
+    // to populate the DOM
     const wrapper = document.createElement('div')
     wrapper.appendChild(myTripsContentDiv)
 
@@ -114,6 +118,17 @@ const createCard = (trip) => {
     row3.appendChild(col3_1)
     row3.appendChild(col3_2)
 
+    const row4 = document.createElement('div')
+    row4.classList.add('row')
+    const col4_1 = document.createElement('div')
+    col4_1.classList.add('col')
+    col4_1.appendChild(createWeatherSummary(departure.summary))
+    const col4_2 = document.createElement('div')
+    col4_2.classList.add('col')
+    col4_2.appendChild(createWeatherSummary(arrival.summary))
+    row4.appendChild(col4_1)
+    row4.appendChild(col4_2)
+
     const img = document.createElement('img')
     img.classList.add("card-img-top")
     img.setAttribute("src", departure.webformatURL)
@@ -123,8 +138,9 @@ const createCard = (trip) => {
     cardBody.appendChild(row1)
     cardBody.appendChild(row2)
     cardBody.appendChild(document.createElement('hr'))
+    cardBody.appendChild(row4)
     cardBody.appendChild(row3)
-
+    
     const article = document.createElement('article')
     article.classList.add("card")
     article.classList.add("m-2")    
@@ -170,6 +186,9 @@ const createWeatherIcon = (icon, temp) => {
     col1.classList.add(icon)
     col1.classList.add('icon-size')
     col1.classList.add('mx-auto')
+    col1.classList.add('mt-0')
+    col1.classList.add('mb-0')
+    col1.classList.add('mr-0')
     col1.classList.add('text-center')
 
     const col2 = document.createElement('div')
@@ -177,23 +196,35 @@ const createWeatherIcon = (icon, temp) => {
     col2.classList.add('mx-auto')
     col2.classList.add('text-center')
     col2.classList.add('temperature')
+    col2.classList.add('mt-0')
+    col2.classList.add('mb-0')
+    col1.classList.add('ml-0')
     col2.innerHTML = parseInt(temp, 10)+'&#730;'
 
     const row = document.createElement('div')
     row.classList.add('row')
     row.classList.add('mx-auto')
     row.classList.add('text-center')
+    row.classList.add('mt-0')
+    row.classList.add('mb-0')
+    row.classList.add('pr-0')
+    row.classList.add('pl-0')
     row.appendChild(col1)
     row.appendChild(col2)
 
     return row
 }
 
-const createFooter = (id) => {
-    const footer = document.createElement('div')
-    footer.classList.add('card-footer')
-    footer.appendChild(createDeleteButton(id))
-    return footer
+const createWeatherSummary = (summary) => {
+    const summaryElement = document.createElement('div')
+    summaryElement.classList.add('card-title')
+    summaryElement.classList.add('text-center')
+    summaryElement.classList.add('mx-auto')
+    summaryElement.classList.add('mt-0')
+    summaryElement.classList.add('mb-0')
+    summaryElement.innerHTML = summary
+
+    return summaryElement
 }
 
 const createDeleteButton = (id) => {
@@ -210,5 +241,11 @@ const createDeleteButton = (id) => {
     return button
 }
 
-export { handleMyTripsClickEvent }
+const createFooter = (id) => {
+    const footer = document.createElement('div')
+    footer.classList.add('card-footer')
+    footer.appendChild(createDeleteButton(id))
+    return footer
+}
 
+export { handleMyTripsClickEvent }

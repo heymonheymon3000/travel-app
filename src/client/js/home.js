@@ -195,7 +195,9 @@ const handleSubmitEvent = (event) => {
             document.getElementById('inputFrom').value = '';
             document.getElementById('inputTo').value = '';
             document.getElementById('inputDepartureDate').value = '';
-            document.getElementById('inputReturnDate').value = '';            
+            document.getElementById('inputReturnDate').value = '';    
+
+            alert("Your trip to " + arrCity + " has been saved.")
         })
         .catch((err) => {
             alert(err.message)

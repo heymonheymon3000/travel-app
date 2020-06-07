@@ -27,6 +27,7 @@
 
     .card-footer {
         // background-color: #FBC02D;
+        @include linearGradient($darkBlue,$midBlue);
         font-weight: bold;
     }
 
