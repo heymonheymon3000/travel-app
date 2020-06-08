@@ -138,6 +138,7 @@ const createSubmitButton = () => {
     button.classList.add('form-control')
     button.innerHTML = '<i class="fa fa-plus" aria-hidden="true"></i> Add Trip'
     button.classList.add("btn")
+    button.classList.add("btn-primary")
     button.classList.add("mb-2")
     return button
 }
@@ -156,7 +157,7 @@ const handleSubmitEvent = (event) => {
         alert("Please enter in a Arrival Date that is later than the Departure Date.")
     } else {
         let tripInfo = {}
-        
+
         showSpinner()
         getLocation(depCity)
         .then((location) => {

@@ -32,12 +32,12 @@ const addEventListeners = (trips) => {
                 const parentElement = document.getElementById('card-container')
                 const removeElement = document.getElementById('c-id-'+trip.id)
                 parentElement.removeChild(removeElement)
-                initPage()
             })
             .then(() => {
                 // before showing alert give a little delay so that the element can be removed from the DOM
                 setTimeout(() => {
                     alert("Your trip to " + trip.arrival.city + " has been deleted.")
+                    initPage()
                 }, 100);
             })
             .catch((err) => {
@@ -166,8 +166,7 @@ const createCard = (trip) => {
 
     const cardHeader = document.createElement('div')
     cardHeader.classList.add('card-header')
-    cardHeader.innerHTML = 'My Trip to: ' + arrival.city + " on " + departure.date
-
+    cardHeader.innerHTML = 'My Trip to ' + arrival.city
     article.appendChild(cardHeader)
     article.appendChild(img)
     article.appendChild(cardBody)
@@ -187,7 +186,7 @@ const createCardTitleCity = (city) => {
 
 const createCardTitleDate = (date) => {
     const dateElement = document.createElement('h6')
-    dateElement.classList.add('card-title')
+    dateElement.classList.add('card-subtitle')
     dateElement.classList.add('text-center')
     dateElement.classList.add('mt-0')
     dateElement.innerHTML = date
@@ -243,7 +242,7 @@ const createAddButton = () => {
     const button = document.createElement('button')
     button.classList.add('btn')
     button.classList.add('btn-lg')
-    button.classList.add('btn-secondary')
+    button.classList.add('btn-primary')
     button.classList.add('add')
     button.setAttribute('type', 'button')
     button.setAttribute('id', 'add-button')
@@ -256,7 +255,7 @@ const createDeleteButton = (id) => {
     const button = document.createElement('button')
     button.classList.add('btn')
     button.classList.add('btn-lg')
-    button.classList.add('btn-secondary')
+    button.classList.add('btn-danger')
     button.classList.add('delete')
     button.setAttribute('type', 'button')
     button.setAttribute('id', id)

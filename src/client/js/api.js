@@ -1,9 +1,7 @@
-const PIXABAY_API_KEY ='16785955-d1d2050b006d185f7a65e1b05'
-const DARK_SKY_API_KEY ='841a9888f38f0d5458c1f32b892d2d1b'
-const DARK_SKY_URL = "https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/"
-const PIXABAY_API_URL = "https://pixabay.com/api/?key="+PIXABAY_API_KEY+"&q="
-const GEONAMES_URL = 'http://api.geonames.org/searchJSON?q='
-const USERNAME = 'heymonheymon'
+import {PIXABAY_API_KEY, DARK_SKY_API_KEY, DARK_SKY_URL, 
+        PIXABAY_API_URL, GEONAMES_URL, USERNAME, 
+        DEFAULT_WEB_FORMAT_URL
+} from './config'
 
 const addTrip = async (data = {}) => {
     const res = await fetch('/api/addTrip', {
@@ -76,6 +74,7 @@ const fetchTripData = async (data) => {
     return Promise.all([departureWeather.json(), departureView.json(), arrivalWeather.json(), arrivalView.json()])
     .then((results) => {
 
+        console.log(results[1].hits[0].webformatURL)
         // departure data
         _.merge(tripData, {departure : {
             city: departure.city,
@@ -85,7 +84,8 @@ const fetchTripData = async (data) => {
             summary: results[0].currently.summary,
             icon:  results[0].currently.icon,
             temperature: results[0].currently.temperature,
-            webformatURL: results[1].hits[0].webformatURL
+            webformatURL: (results[1].hits[0].webformatURL !== null && results[1].hits[0].webformatURL !== '') ? 
+                           results[1].hits[0].webformatURL : DEFAULT_WEB_FORMAT_URL
         }})
 
         // arrival data
@@ -97,7 +97,8 @@ const fetchTripData = async (data) => {
             summary: results[2].currently.summary,
             icon:  results[2].currently.icon,
             temperature: results[2].currently.temperature,
-            webformatURL: results[3].hits[0].webformatURL
+            webformatURL: (results[3].hits[0].webformatURL !== null && results[3].hits[0].webformatURL !== '') ?
+                           results[3].hits[0].webformatURL : DEFAULT_WEB_FORMAT_URL
         }})
 
         return tripData
