@@ -166,7 +166,7 @@ const createCard = (trip) => {
 
     const cardHeader = document.createElement('div')
     cardHeader.classList.add('card-header')
-    cardHeader.innerHTML = 'My Trip to ' + arrival.city
+    cardHeader.innerHTML = 'My Trip to ' + arrival.city + ' for ' + getNumberOfDays(departure.date, arrival.date) + ' days'
     article.appendChild(cardHeader)
     article.appendChild(img)
     article.appendChild(cardBody)
@@ -287,6 +287,10 @@ const createFooter = (id) => {
     footer.classList.add('card-footer')
     footer.appendChild(row)
     return footer
+}
+
+const getNumberOfDays = (departureDate, arrivalDate) => {
+    return (new Date(arrivalDate).getTime() - new Date(departureDate).getTime()) / (1000 * 3600 * 24); 
 }
 
 export { handleMyTripsClickEvent }
