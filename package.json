@@ -51,6 +51,10 @@
     "changeOrigin": true
   },
   "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ],
     "automock": false,
     "testPathIgnorePatterns": [
       "types"
