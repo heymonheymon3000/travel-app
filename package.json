@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "test": "jest",
+    "test": "yarn build-prod && jest",
     "start": "node src/server/server.js",
     "build-prod": "rm -rf dist && webpack --config webpack.prod.js",
     "build-dev": "rm -rf dist && webpack-dev-server --config webpack.dev.js --open"
@@ -28,8 +28,10 @@
     "workbox-webpack-plugin": "^5.1.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.10.1",
-    "@babel/preset-env": "^7.10.1",
+    "@babel/core": "^7.10.2",
+    "@babel/plugin-transform-runtime": "^7.10.1",
+    "@babel/preset-env": "^7.10.2",
+    "babel-jest": "^26.0.1",
     "babel-loader": "^8.1.0",
     "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^3.5.3",
@@ -40,6 +42,7 @@
     "node-sass": "^4.14.1",
     "sass-loader": "^8.0.2",
     "style-loader": "^1.2.1",
+    "supertest": "^4.0.2",
     "webpack-bundle-analyzer": "^3.8.0",
     "webpack-dev-server": "^3.11.0"
   },

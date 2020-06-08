@@ -14,6 +14,10 @@ app.use(cors())
 // local cache to store multiple trips
 let tripData = [];
 
+app.get('/test', function (req, res) {
+    res.status(200)
+})
+
 app.get('/', function (req, res) {
     res.status(200).sendFile(resolve('dist', 'index.html'))
 })
