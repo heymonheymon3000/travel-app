@@ -73,8 +73,6 @@ const fetchTripData = async (data) => {
 
     return Promise.all([departureWeather.json(), departureView.json(), arrivalWeather.json(), arrivalView.json()])
     .then((results) => {
-
-        console.log(results[1].hits[0].webformatURL)
         // departure data
         _.merge(tripData, {departure : {
             city: departure.city,
@@ -84,8 +82,8 @@ const fetchTripData = async (data) => {
             summary: results[0].currently.summary,
             icon:  results[0].currently.icon,
             temperature: results[0].currently.temperature,
-            webformatURL: (results[1].hits[0].webformatURL !== null && results[1].hits[0].webformatURL !== '') ? 
-                           results[1].hits[0].webformatURL : DEFAULT_WEB_FORMAT_URL
+            webformatURL: (results[1] && results[1].hits[0] && results[1].hits[0].webformatURL) 
+                         ? results[1].hits[0].webformatURL : DEFAULT_WEB_FORMAT_URL
         }})
 
         // arrival data
@@ -97,14 +95,14 @@ const fetchTripData = async (data) => {
             summary: results[2].currently.summary,
             icon:  results[2].currently.icon,
             temperature: results[2].currently.temperature,
-            webformatURL: (results[3].hits[0].webformatURL !== null && results[3].hits[0].webformatURL !== '') ?
-                           results[3].hits[0].webformatURL : DEFAULT_WEB_FORMAT_URL
+            webformatURL: (results[3] && results[3].hits[0] && results[3].hits[0].webformatURL) 
+                         ? results[3].hits[0].webformatURL : DEFAULT_WEB_FORMAT_URL
         }})
 
         return tripData
     })
 }
-    
+
 export {
     removeTrip,
     addTrip,

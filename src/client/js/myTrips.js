@@ -1,4 +1,4 @@
-import { getAllTrips, removeTrip  }  from '../js/api'
+import { getAllTrips, removeTrip }  from '../js/api'
 import { hideSpinner, showSpinner}  from '../js/spinner'
 
 const handleMyTripsClickEvent = (event) => {
@@ -49,7 +49,7 @@ const addEventListeners = (trips) => {
         })
     }
 
-    // form validation event listener
+    // go to the home page
     let addButtons = document.getElementsByClassName("add")
     Array.prototype.slice.call(addButtons).map((addButton) => {
         addButton.addEventListener('click', (event) => {
@@ -148,7 +148,7 @@ const createCard = (trip) => {
 
     const img = document.createElement('img')
     img.classList.add("card-img-top")
-    img.setAttribute("src", departure.webformatURL)
+    img.setAttribute("src", arrival.webformatURL)
     img.setAttribute("alt", "Card image cap")
 
     const cardBody = document.createElement('card-body')
