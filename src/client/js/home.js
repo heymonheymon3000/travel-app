@@ -71,7 +71,7 @@ const buildLayout = () => {
     departureDateDiv.appendChild(createInput('inputDepartureDate', 'date'))
 
     const returnDateDiv = createFormElementDiv() 
-    returnDateDiv.appendChild(createFormLabel('inputReturnDate', 'Arrival Date'))
+    returnDateDiv.appendChild(createFormLabel('inputReturnDate', 'Return Date'))
     returnDateDiv.appendChild(createInput('inputReturnDate', 'date'))
 
     const submitButtonDiv = createFormElementDiv() 

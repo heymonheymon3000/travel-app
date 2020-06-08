@@ -13,7 +13,7 @@ This project allows users to plan and save travel trips by entering in a departi
 ### Delete trip
 ![Delete trip](demo/delete-trip.gif)
 
-## Running 
+## Running Application
 ### Production
 `yarn build-prod && yarn start`
 `open browser: http://localhost:3000`
